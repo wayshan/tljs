@@ -106,6 +106,6 @@ namespace Mx.Model
         /// <summary>
         /// detectionTime
         /// </summary>	
-        public string detectionTime { get; set; }   
+        public DateTime? detectionTime { get; set; }   
     }
 }

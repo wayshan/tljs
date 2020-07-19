@@ -152,7 +152,7 @@
           <Property Name="tdRatio" Type="decimal" Precision="5" Scale="2" />
           <Property Name="tdCoupon" Type="nvarchar" MaxLength="255" />
           <Property Name="tdCouponPrice" Type="decimal" Scale="2" />
-          <Property Name="detectionTime" Type="nchar" MaxLength="10" />
+          <Property Name="detectionTime" Type="datetime" />
         </EntityType>
         <EntityType Name="TljInfo">
           <Key>
@@ -395,7 +395,7 @@
           <Property Type="Decimal" Name="tdRatio" Precision="5" Scale="2" />
           <Property Type="String" Name="tdCoupon" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="tdCouponPrice" Precision="18" Scale="2" />
-          <Property Type="String" Name="detectionTime" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="detectionTime" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -622,7 +622,7 @@
         <EntityTypeShape EntityType="TljModel.TljInfo" Width="1.5" PointX="0.75" PointY="4.75" Height="7.64884521484375" />
         <EntityTypeShape EntityType="TljModel.Orders" Width="1.5" PointX="3.375" PointY="4.75" Height="10.605550944010417" />
         <EntityTypeShape EntityType="TljModel.collectgoods" Width="1.5" PointX="5.375" PointY="5.75" Height="5.43131591796875" />
-        <EntityTypeShape EntityType="TljModel.plans" Width="1.5" PointX="7.375" PointY="0.75" Height="4.87693359375" />
+        <EntityTypeShape EntityType="TljModel.plans" Width="1.5" PointX="7.375" PointY="0.75" Height="5.6161100260416674" />
       </Diagram>
     </Diagrams>
   </Designer>

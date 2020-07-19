@@ -3146,7 +3146,7 @@ namespace Mx.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String detectionTime
+        public Nullable<global::System.DateTime> detectionTime
         {
             get
             {
@@ -3156,13 +3156,13 @@ namespace Mx.Model
             {
                 OndetectionTimeChanging(value);
                 ReportPropertyChanging("detectionTime");
-                _detectionTime = StructuralObject.SetValidValue(value, true);
+                _detectionTime = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("detectionTime");
                 OndetectionTimeChanged();
             }
         }
-        private global::System.String _detectionTime;
-        partial void OndetectionTimeChanging(global::System.String value);
+        private Nullable<global::System.DateTime> _detectionTime;
+        partial void OndetectionTimeChanging(Nullable<global::System.DateTime> value);
         partial void OndetectionTimeChanged();
 
         #endregion
