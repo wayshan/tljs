@@ -1,0 +1,462 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminBaseMaster.master.cs"
+    Inherits="Mx.Web.adm.AdminBaseMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>淘礼金数据系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- BEGIN STYLE CODES --> 
+    <link href="../assets/css/twitter-bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/social-jquery-ui-1.10.0.custom.css" rel="stylesheet">
+    <link href="../assets/css/social.css" rel="stylesheet">
+    <link href="../assets/css/social.plugins.css" rel="stylesheet">
+    <link href="../assets/css/font-awesome.css" rel="stylesheet">
+    <link href="../assets/css/social-coloredicons-buttons.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="/templates/social/assets/css/social-jquery.ui.1.10.0.ie.css"/>
+    <![endif]-->
+    <!-- BEGIN STYLE CODE FOR THE CURRENT PAGE -->
+    <link href="../assets/plugins/jquery.footable/footable.core.css" rel="stylesheet">
+    <!-- END STYLE CODE FOR THE CURRENT PAGE -->
+    <link href="../assets/css/demo.css" rel="stylesheet">
+    <link href="../assets/plugins/jquery.uipro/style.css" rel="stylesheet">
+    <link href="../assets/plugins/jquery.simplecolorpicker/jquery.simplecolorpicker.css"
+        rel="stylesheet">
+    <link href="../assets/css/themes/social.theme-blue.css" rel="stylesheet" id="theme">
+    <link href="../assets/css/twitter-bootstrap/bootstrap-responsive.css" rel="stylesheet">
+    <!-- BEGIN STYLE CODE FOR THE CURRENT PAGE -->
+    <!-- END STYLE CODE FOR THE CURRENT PAGE -->
+    <style>
+        .wraper #main
+        {
+            margin-top: 40px;
+        }
+        
+        
+    </style>
+
+    <style>
+    .ChartSrc{
+  width: 100%;
+  height: 104px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.ChartSrc ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  
+  justify-content: space-between;
+}
+.ChartSrc ul li{
+  display: inline-block;
+  width: 174px;
+  height: 70px;
+  border-radius: 6px;
+  position: relative;
+  padding: 19px;
+  background-size: 234px 124px;
+  background-repeat: no-repeat;
+}
+.ChartSrc ul li:last-child{
+  margin-right: 0;
+}
+.ChartSrc ul li p{
+  color: #fff;
+  padding: 0;
+  margin: 0;
+}
+.ChartSrc ul li .Title{
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 8px;
+}
+.ChartSrc ul li .Number{
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.TipsIconBox{
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 16px;
+  height: 16px;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.TipsIconBox i{
+  display: none;
+  background: #5794FC;
+  width: 168px;
+  min-height: 52px;
+  border-radius: 6px;
+  color: #fff;
+  padding: 5px 6px;
+  font-size: 12px;
+  position: absolute;
+  bottom: 27px;
+  left: -84px;
+}
+.TipsIconBox i::after{
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 82px;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-width: 8px;
+  border-top-color: currentColor;
+  color: #5794FC;
+}
+.TipsIconBox:hover i{
+  display: block;
+}
+    </style>
+
+    <!-- END STYLE CODES -->
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="/templates/social/assets/plugins/html5shiv.js"></script>
+    <![endif]-->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="wraper sidebar-full">
+        <aside class="social-sidebar sidebar-full">       
+        <div class="social-sidebar-content nano">
+          <div class="content">
+            <!-- The user name and avatar section -->
+            <div class="user">
+              <img class="avatar" width="25" height="25" src="../assets/img/avatar-55.png" alt="Julio Marquez">
+              <asp:Label ID="LbUserName" data-toggle="dropdown" runat="server"></asp:Label>
+              
+              <!-- This is the trigger for the user settings menu -->
+              <i class="icon-user trigger-user-settings"></i>
+            </div>
+
+            <!-- BEGIN NAVIGATION CONTROLS -->
+            <div class="navigation-sidebar">
+              <i class="switch-sidebar-icon icon-align-justify"></i>
+            </div>
+            <!-- END NAVIGATION CONTROLS -->
+
+            <!-- The search field section -->
+            <%--<div class="search-sidebar">
+              <i class="icon-search icon-2"></i>
+              <form class="search-sidebar-form">
+                <input type="text" class="search-query input-block-level" placeholder="Search">
+              </form>
+            </div>--%>
+            <div class="clearfix"></div>
+            <!-- START the menu content section -->
+            <section class="menu">
+              <!-- We use accordion for the menu -->
+              <div class="accordion" id="accordion2">
+              <!-- If you want that a top item activated you must add the active
+                   class as shown in the next line and add the opened class next to
+                   the accordion-toggle class --> 
+
+            <%--<div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="Index.aspx">
+                    <i class="icon-cogs icon-2"></i>
+                    <span>首页</span>
+                  </a>
+                </div>
+              </div>
+    
+             <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="MobileStatusList.aspx">
+                    <i class="icon-cogs icon-2"></i>
+                    <span>手机运行状态</span>
+                  </a>
+                </div>
+              </div>--%>
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="TljDo.aspx">
+                    <i class="icon-plus icon-2"></i>
+                    <span>添加记录</span>
+                  </a>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="TljList.aspx">
+                    <i class="icon-tasks icon-2"></i>
+                    <span>转换记录</span>
+                  </a>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="change.aspx">
+                    <i class="icon-exchange icon-2"></i>
+                    <span>在线转产品</span>
+                  </a>
+                </div>
+              </div>
+
+              
+
+             <%-- <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="UserDownloadList.aspx">
+                    <i class="icon-cogs icon-2"></i>
+                    <span>用户信息下载记录</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="GroupFriendsList.aspx">
+                    <i class="icon-cogs icon-2"></i>
+                    <span>群好友添加信息</span>
+                  </a>
+                </div>
+              </div>--%>
+
+
+              <%--<div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="FriendsStatList.aspx">
+                    <i class="icon-tasks icon-2"></i>
+                    <span>好友添加统计信息</span>
+                  </a>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="GroupStatList.aspx">
+                    <i class="icon-tasks icon-2"></i>
+                    <span>群统计信息</span>
+                  </a>
+                </div>
+              </div>--%>
+              
+             <%-- <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="SpecialLogList.aspx">
+                    <i class="icon-cogs icon-2"></i>
+                    <span>特殊日志信息</span>
+                  </a>
+                </div>
+              </div>--%>
+
+
+              <asp:PlaceHolder ID="phAdmin" runat="server" Visible="false">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="TljStat.aspx">
+                    <i class="icon-bar-chart icon-2"></i>
+                    <span>淘礼金统计</span>
+                  </a>
+                </div>
+              </div>
+
+
+               <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="OrdersList.aspx">
+                    <i class="icon-cogs icon-2"></i>
+                    <span>订单统计</span>
+                  </a>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="ProductStat.aspx">
+                    <i class="icon-list-ol icon-2"></i>
+                    <span>订单排行</span>
+                  </a>
+                </div>
+              </div>
+
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="plansList.aspx">
+                    <i class="icon-reorder icon-2"></i>
+                    <span>高佣金计划列表</span>
+                  </a>
+                </div>
+              </div>
+              
+               <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="collectgoodsList.aspx">
+                    <i class="icon-signin icon-2"></i>
+                    <span>同行信息采集</span>
+                  </a>
+                </div>
+              </div>
+              
+
+              
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="appkeyList.aspx">
+                    <i class="icon-unlock icon-2"></i>
+                    <span>授权管理</span>
+                  </a>
+                </div>
+              </div>
+
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="AdminList.aspx">
+                    <i class="icon-user-md icon-2"></i>
+                    <span>管理员管理</span>
+                  </a>
+                </div>
+              </div>             
+              </asp:PlaceHolder>
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="ChangePwd.aspx">
+                    <i class="icon-key icon-2"></i>
+                    <span>修改密码</span>
+                  </a>
+                </div>
+              </div>
+
+              <%--<div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="SysConfig.aspx">
+                    <i class="icon-wrench icon-2"></i>
+                    <span>系统设置</span>
+                  </a>
+                </div>
+              </div>--%>
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle logout" onclick="return confirm('确定退出系统？')" href="logout.aspx">
+                    <i class="icon-off icon-2"></i>
+                    <span>退出系统</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+            </section>
+            <!-- END the menu content section -->
+          </div>
+        </div>
+      </aside>
+        <header>
+        <nav class="navbar navbar-fixed-top social-navbar">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+              <!-- This is the button that shows the social sidebar in tablets an phones -->
+              <!-- Responsive navbar -> http://getbootstrap.com/2.3.2/components.html#navbar -->
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".social-sidebar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+              <a class="brand" href="#">系统后台管理</a>
+            </div>
+          </div>
+        </nav>
+      </header>
+        <div id="main">
+            <div class="container-fluid">
+            <asp:ContentPlaceHolder ID="ContentNav" runat="server">
+            </asp:ContentPlaceHolder>
+            
+                <div class="row-fluid">
+                    <!-- BEGIN -->
+                    <asp:ContentPlaceHolder ID="ContentPage" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <!-- END -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <asp:ContentPlaceHolder ID="ContentJs" runat="server">
+    </asp:ContentPlaceHolder>
+    <script>
+        $(function () {
+            $('.form-actions').show();
+        });
+
+        function submitFun(form) {
+            form.submit();
+        }
+        Number.prototype.toFixed = function (len) {
+            var add = 0;
+            var s, temp;
+            var s1 = this + "";
+            var start = s1.indexOf(".");
+            if (s1.substr(start + len + 1, 1) >= 5) add = 1;
+            var temp = Math.pow(10, len);
+            s = Math.floor(this * temp) + add;
+            return s / temp;
+        }
+        function changeTwoDecimal_f(val) {
+            try {
+                var f_x = parseFloat(eval(val));
+
+                if (isNaN(f_x)) {
+                    return '0.00';
+                }
+                var f_x = Math.round(eval(val) * 100) / 100;
+                var s_x = f_x.toString();
+                var pos_decimal = s_x.indexOf('.');
+                if (pos_decimal < 0) {
+                    pos_decimal = s_x.length;
+                    s_x += '.';
+                }
+                while (s_x.length <= pos_decimal + 2) {
+                    s_x += '0';
+                }
+                return s_x;
+            }
+            catch (e) {
+
+            }
+        }  
+    </script>
+    </form>
+</body>
+</html>
