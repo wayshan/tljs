@@ -74,7 +74,7 @@ namespace Mx.Web.adm
                 new Model.appkeyCondition { }, w => w.ID, false);
             foreach (var item in appkeyList)
             {
-                ListItem li = new ListItem(item.AppName, item.ID.ToString());
+                ListItem li = new ListItem(item.AppName, item.AdzoneId);
                 ddlAppKeyID.Items.Add(li);
             }
         }
@@ -110,7 +110,7 @@ namespace Mx.Web.adm
             
             if (!string.IsNullOrEmpty(ddlAppKeyID.SelectedValue))
             {
-                con.adName = ddlAppKeyID.SelectedItem.Text;
+                con.AdId = ddlAppKeyID.SelectedValue;
             }
 
             return con;

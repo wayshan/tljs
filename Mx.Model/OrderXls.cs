@@ -17,7 +17,7 @@ namespace Mx.Model
         public decimal? Effect { get; set; }
         public decimal? lijin { get; set; }
         public decimal? realshouru { get; set; }
-        public string AdName { get; set; }
+        public string AppName { get; set; }
         public decimal md_amount { get; set; }
         public int md_count { get; set; }
             

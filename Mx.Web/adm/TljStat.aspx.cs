@@ -54,11 +54,15 @@ namespace Mx.Web.adm
                 new Model.appkeyCondition { }, w => w.ID, false);
             foreach (var item in appkeyList)
             {
-                ListItem li = new ListItem(item.AppName, item.ID.ToString()); 
+                ListItem li = new ListItem(item.AppName, item.AdzoneId); 
                 ddlAppKeyID.Items.Add(li);
+            }
 
-                //ListItem li2 = new ListItem(item.TbAccount, item.TbAccount);
-                //ddlAccount.Items.Add(li2);
+            var listAccount = appkeyList.GroupBy(m => new { m.TbAccount }).Select(m => m.Key).ToList();
+            foreach (var item in listAccount)
+            {
+                ListItem li = new ListItem(item.TbAccount, item.TbAccount);
+                ddlAccount.Items.Add(li);
             }
         }
 
@@ -150,7 +154,11 @@ namespace Mx.Web.adm
             }
             if (!string.IsNullOrEmpty(ddlAppKeyID.SelectedValue))
             {
-                con.adName = ddlAppKeyID.SelectedItem.Text;
+                con.AdId = ddlAppKeyID.SelectedValue;
+            }
+            if (!string.IsNullOrEmpty(ddlAccount.SelectedValue))
+            {
+                con.setName = ddlAccount.SelectedValue;
             }
             return con;
         }
@@ -169,8 +177,15 @@ namespace Mx.Web.adm
                 PageFunc.AjaxAlert(this.Page, "数据为空，请先统计查询！");
             }
             else
-            {
-                string fileName = string.Format("统计数据_{0}.xls", DateTime.Now.ToString("yyyy-MM-dd"));
+            {               
+                DateTime dtStart = DateTime.Parse(txtDateStart.Text);
+                DateTime dtEnd = DateTime.Parse(txtDateEnd.Text);
+                string fileName = string.Format("{0}-{1}_{2}_{3}_{4}.xls",
+                    dtStart.ToString("yyyy-MM-dd"),
+                    dtEnd.ToString("yyyy-MM-dd"),
+                    string.IsNullOrEmpty( ddlAccount.SelectedValue)?"全部帐号":ddlAccount.SelectedValue,
+                    string.IsNullOrEmpty(ddlAccount.SelectedValue) ? "全部推广位" : ddlAppKeyID.SelectedItem.Text,
+                    DateTime.Now.ToString("yyyy-MM-dd"));
                 ExcelHelp<Model.TljStatXls> excelH = new ExcelHelp<Model.TljStatXls>();
                 Hashtable ht = new Hashtable();
 

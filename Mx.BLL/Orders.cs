@@ -104,9 +104,13 @@ namespace Mx.BLL
                 DateTime dt = DateTime.Parse("2020-07-01");
                 searchPredicate = searchPredicate.And(m => m.CreateTime >= dt);
             }
-            if (!string.IsNullOrEmpty(con.adName))
+            if (!string.IsNullOrEmpty(con.setName))
             {
-                searchPredicate = searchPredicate.And(m => m.AdName == con.adName);
+                searchPredicate = searchPredicate.And(m => m.SetName == con.setName);
+            }
+            if (!string.IsNullOrEmpty(con.AdId))
+            {
+                searchPredicate = searchPredicate.And(m => m.AdID == con.AdId);
             }
             if (con.statStartTime.HasValue)
             {

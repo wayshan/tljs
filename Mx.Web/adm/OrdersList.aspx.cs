@@ -116,6 +116,11 @@ namespace Mx.Web.adm
             {
                 con.AdId = ddlAppKeyID.SelectedValue;
             }
+            if (!string.IsNullOrEmpty(ddlAccount.SelectedValue))
+            {
+                con.setName = ddlAccount.SelectedValue;
+            }
+
             
             return con;
         }
@@ -158,11 +163,18 @@ namespace Mx.Web.adm
                     Effect = i.Effect,
                     lijin = i.lijin,
                     realshouru =i.realshouru,
-                    AdName = i.AdName                   
+                    AppName = new TljEntities().appkeys.Where(m => m.AdzoneId == i.AdID).FirstOrDefault()!=null?new TljEntities().appkeys.Where(m => m.AdzoneId == i.AdID).FirstOrDefault().AppName:""        
                 });
             }
 
-            string fileName = string.Format("订单明细_{0}.xls", DateTime.Now.ToString("yyyy-MM-dd"));
+            DateTime dtStart = DateTime.Parse(txtDateStart.Text);
+            DateTime dtEnd = DateTime.Parse(txtDateEnd.Text);
+            string fileName = string.Format("{0}-{1}_{2}_{3}_{4}.xls",
+                dtStart.ToString("yyyy-MM-dd"),
+                dtEnd.ToString("yyyy-MM-dd"),
+                string.IsNullOrEmpty(ddlAccount.SelectedValue) ? "全部帐号" : ddlAccount.SelectedValue,
+                string.IsNullOrEmpty(ddlAccount.SelectedValue) ? "全部推广位" : ddlAppKeyID.SelectedItem.Text,
+                DateTime.Now.ToString("yyyy-MM-dd"));
             ExcelHelp<Model.OrderXls> excelH = new ExcelHelp<Model.OrderXls>();
             Hashtable ht = new Hashtable();
 
@@ -176,7 +188,7 @@ namespace Mx.Web.adm
             ht.Add("Effect", "预估佣金");
             ht.Add("lijin", "礼金");
             ht.Add("realshouru", "实际收益");
-            ht.Add("AdName", "推广位");
+            ht.Add("AppName", "推广位");
 
             excelH.getExcel(excelList, ht, fileName);
         }

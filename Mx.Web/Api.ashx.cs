@@ -171,13 +171,21 @@ namespace Mx.Web
                        model.zhanghaos_ok += "#" + zh;
                        model.zhanghaos_ok = model.zhanghaos_ok.Trim('#') ;
                        List<string> tmplist = new List<string>(model.zhanghaos_doing.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
+                       if (!string.IsNullOrEmpty(model.zhanghaos_ok))
+                       {
+                           tmplist = new List<string>(model.zhanghaos_doing.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
+                       }
                        model.zhanghaos_doing = string.Join("#", tmplist.Where(i => i != zh));
                     }
                     else if (status == "已申请")
                     {
                         model.zhanghaos_doing += "#" + zh;
                         model.zhanghaos_doing = model.zhanghaos_doing.Trim('#');
-                        List<string> tmplist = new List<string>(model.zhanghaos_ok.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
+                        List<string> tmplist = new List<string>();
+                        if (!string.IsNullOrEmpty(model.zhanghaos_ok))
+                        {
+                            tmplist = new List<string>(model.zhanghaos_ok.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
+                        }
                         model.zhanghaos_ok = string.Join("#", tmplist.Where(i => i != zh));
                     }
                     else if (status == "作废")
@@ -193,7 +201,7 @@ namespace Mx.Web
             catch (Exception e)
             {
                 res.success = false;
-                res.message = "更新失败" + e.Message;
+                res.message = "更新失败，" + e.Message;
             }
 
             return res;

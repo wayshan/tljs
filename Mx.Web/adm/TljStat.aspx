@@ -40,10 +40,10 @@
                             日期：<asp:TextBox ID="txtDateStart" Width="150" class="laydate-icon" runat="server"></asp:TextBox>
                             —
                             <asp:TextBox ID="txtDateEnd" Width="150" class="laydate-icon" runat="server"></asp:TextBox>
-                           <%--帐号：<asp:DropDownList ID="ddlAccount" runat="server" style=" width:auto">
+                           帐号：<asp:DropDownList ID="ddlAccount" runat="server" style=" width:auto">
                                 <asp:ListItem Value="" Text="全部"></asp:ListItem>                                
                                                            
-                            </asp:DropDownList> --%>
+                            </asp:DropDownList> 
                            
                            推广位：<asp:DropDownList ID="ddlAppKeyID" runat="server" style=" width:auto">
                                 <asp:ListItem Value="" Text="全部"></asp:ListItem>                                

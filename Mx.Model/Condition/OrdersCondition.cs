@@ -11,7 +11,7 @@ namespace Mx.Model
         public bool isstat { get; set; }
         public DateTime? statStartTime { get; set; }
         public DateTime? statEndTime { get; set; }
-        public string adName { get; set; }
+        public string setName { get; set; }
         public string AdId { get; set; }
 
         public string dateTime { get; set; }
