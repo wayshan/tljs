@@ -160,10 +160,12 @@
                                             CssClass="btn" runat="server">
                                                         <i class="icon-check"></i>佣金检测
                                         </asp:LinkButton> --%> 
+                                        <span style="<%#Eval("ifget").ToString()=="True"?"display:none":"" %>">
                                         <asp:LinkButton ID="LbDel" OnClick="LbDel_Click" OnClientClick="return confirm('确认删除？')"
                                             CommandArgument='<%#Eval("ID")%>' CssClass="btn" runat="server">
                                                         <i class="icon-trash"></i>删除
-                                        </asp:LinkButton>                                      
+                                        </asp:LinkButton>  
+                                        </span>                                    
                                     </td>
                                 </tr>
                             </ItemTemplate>

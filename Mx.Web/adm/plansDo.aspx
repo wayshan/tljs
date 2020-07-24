@@ -57,6 +57,20 @@
                     </div>
                     <div class="control-group" >
                         <label class="control-label">
+                            定向佣金比例</label>
+                        <div class="controls">
+                            <asp:TextBox ID="txtcommission_dx" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="定向佣金比例"></asp:TextBox>
+                        </div>
+                    </div> 
+                     <div class="control-group" >
+                        <label class="control-label">
+                            营销佣金比例</label>
+                        <div class="controls">
+                            <asp:TextBox ID="txtcommission_MKT" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="营销佣金比例"></asp:TextBox>
+                        </div>
+                    </div>                     
+                    <div class="control-group" >
+                        <label class="control-label">
                             计划名称</label>
                         <div class="controls">
                             <asp:TextBox ID="txtplan_name" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="优惠券链接"></asp:TextBox>

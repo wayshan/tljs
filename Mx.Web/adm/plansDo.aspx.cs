@@ -44,8 +44,7 @@ namespace Mx.Web.adm
 
 
         private void add()
-        {
-
+        {           
             modelplans = new Model.plans();
             modelplans.item_id = txtitem_id.Text.Trim();
             modelplans.goodsname = txtgoodsname.Text.Trim();
@@ -54,6 +53,8 @@ namespace Mx.Web.adm
             modelplans.campaignId = txtcampaignId.Text.Trim();
             modelplans.planlink = txtplan_link.Text.Trim();
             modelplans.coupon_url = txtquan_link.Text.Trim();
+            modelplans.commission_dx = txtcommission_dx.Text.Trim();
+            modelplans.commission_MKT = txtcommission_MKT.Text.Trim();
 
             bllplans.Add(modelplans);
             Response.Write(PageFunc.ShowMsgJumpE("添加成功！", "plansList.aspx"));
