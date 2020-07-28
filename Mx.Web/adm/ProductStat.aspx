@@ -13,7 +13,7 @@
             <ul class="breadcrumb">
                 <li><i class="icon-home"></i><a href="#">首页</a> <span class="icon-angle-right"></span>
                 </li>
-                <li><a href="OrdersList.aspx">订单统计</a> <span class="icon-angle-right"></span></li>
+                <li><a href="ProductStat.aspx">订单排行</a> <span class="icon-angle-right"></span></li>
             </ul>
         </div>
     </div>
@@ -44,6 +44,10 @@
                             <asp:TextBox ID="txtDateStart" Width="150" class="laydate-icon" runat="server"></asp:TextBox> —
                             <asp:TextBox ID="txtDateEnd" Width="150" class="laydate-icon" runat="server"></asp:TextBox>                                                                               
                            
+                            帐号：<asp:DropDownList ID="ddlAccount" runat="server" style=" width:auto">
+                                <asp:ListItem Value="" Text="全部"></asp:ListItem>                                
+                                                           
+                            </asp:DropDownList> 
                           
                             推广位：<asp:DropDownList ID="ddlAppKeyID" runat="server" style=" width:auto">
                                 <asp:ListItem Value="" Text="全部"></asp:ListItem>

@@ -24,6 +24,7 @@
           <Property Name="AddTime" Type="datetime" />
           <Property Name="Enabled" Type="bit" />
           <Property Name="UserType" Type="nvarchar" MaxLength="10" />
+          <Property Name="TbAccount" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="appkey">
           <Key>
@@ -222,6 +223,7 @@
           <Property Type="DateTime" Name="AddTime" Precision="3" />
           <Property Type="Boolean" Name="Enabled" />
           <Property Type="String" Name="UserType" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TbAccount" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="appkey">
           <Key>
@@ -406,6 +408,7 @@
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="TljModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="TbAccount" ColumnName="TbAccount" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />

@@ -18,7 +18,8 @@ namespace Mx.Web
             //{
             //    ID = u.ID,
             //    UserName = u.UserName,
-            //    UserType = Codes.AdminRole.管理员
+            //    UserType = Codes.AdminRole.管理员,
+            //    TbAccount = "S1"
             //};
             //Session[sessionAdminModel] = uModel;
 

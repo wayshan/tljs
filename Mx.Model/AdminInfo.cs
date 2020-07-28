@@ -92,5 +92,18 @@ namespace Mx.Model
             set { _enabled = value; }
         }
 
+        /// <summary>
+        /// 所属帐号
+        /// </summary>		
+        private string _tbaccount;
+        /// <summary>
+        /// 所属帐号
+        /// </summary>	
+        public string TbAccount
+        {
+            get { return _tbaccount; }
+            set { _tbaccount = value; }
+        }
+
     }
 }

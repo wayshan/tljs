@@ -77,6 +77,17 @@ namespace Mx.Web.adm
                 ListItem li = new ListItem(item.AppName, item.AdzoneId);
                 ddlAppKeyID.Items.Add(li);
             }
+
+            var listAccount = appkeyList.GroupBy(m => new { m.TbAccount }).Select(m => m.Key).ToList();
+            foreach (var item in listAccount)
+            {
+                ListItem li = new ListItem(item.TbAccount, item.TbAccount);
+                if (item.TbAccount == CurrentLoginAdmin.TbAccount)
+                {
+                    li.Selected = true;
+                }
+                ddlAccount.Items.Add(li);
+            }
         }
 
 
@@ -112,6 +123,11 @@ namespace Mx.Web.adm
             {
                 con.AdId = ddlAppKeyID.SelectedValue;
             }
+            if (!string.IsNullOrEmpty(ddlAccount.SelectedValue))
+            {
+                con.setName = ddlAccount.SelectedValue;
+            }
+
 
             return con;
         }

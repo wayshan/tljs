@@ -52,8 +52,7 @@
                             </asp:DropDownList> 
                           
                           帐号：<asp:DropDownList ID="ddlAccount" runat="server" style=" width:auto">
-                                <asp:ListItem Value="" Text="全部"></asp:ListItem>                                
-                                                           
+                                <asp:ListItem Value="" Text="全部"></asp:ListItem> 
                             </asp:DropDownList> 
 
                             推广位：<asp:DropDownList ID="ddlAppKeyID" runat="server" style=" width:auto">

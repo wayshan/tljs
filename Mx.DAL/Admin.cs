@@ -24,7 +24,8 @@ namespace Mx.DAL
                 UserType= p.UserType,
                 AddTime =p.AddTime.Value,
                 Enabled=p.Enabled.Value,
-                Remark = p.Remark
+                Remark = p.Remark,
+                TbAccount = p.TbAccount
             }).FirstOrDefault();           
             return model;
         }

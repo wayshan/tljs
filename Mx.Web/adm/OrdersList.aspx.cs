@@ -75,6 +75,10 @@ namespace Mx.Web.adm
             foreach (var item in listAccount)
             {
                 ListItem li = new ListItem(item.TbAccount, item.TbAccount);
+                if (item.TbAccount == CurrentLoginAdmin.TbAccount)
+                {
+                    li.Selected = true;
+                }
                 ddlAccount.Items.Add(li);
             }
         }

@@ -416,6 +416,30 @@ namespace Mx.Model
         private global::System.String _UserType;
         partial void OnUserTypeChanging(global::System.String value);
         partial void OnUserTypeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TbAccount
+        {
+            get
+            {
+                return _TbAccount;
+            }
+            set
+            {
+                OnTbAccountChanging(value);
+                ReportPropertyChanging("TbAccount");
+                _TbAccount = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TbAccount");
+                OnTbAccountChanged();
+            }
+        }
+        private global::System.String _TbAccount;
+        partial void OnTbAccountChanging(global::System.String value);
+        partial void OnTbAccountChanged();
 
         #endregion
 

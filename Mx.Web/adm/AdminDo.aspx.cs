@@ -12,16 +12,33 @@ namespace Mx.Web.adm
     {
         Model.Admin modelAdmin = new Model.Admin();
         BLL.Admin bllAdmin = new BLL.Admin();
-
+        BLL.appkey bllappkey = new BLL.appkey();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckAuth(new string[] { Codes.AdminRole.管理员});
             if (!IsPostBack)
             {
+                ddlDataBind();
+
                 ShowInfo();
             }
         }
-
+        /// <summary>
+        /// 下拉框数据绑定
+        /// </summary>
+        protected void ddlDataBind()
+        {
+            int total = 0;
+            var appkeyList = bllappkey.GetList(1, int.MaxValue, ref total,
+                new Model.appkeyCondition { }, w => w.ID, false);
+            var listAccount = appkeyList.GroupBy(m => new { m.TbAccount }).Select(m => m.Key).ToList();
+            foreach (var item in listAccount)
+            {
+                ListItem li = new ListItem(item.TbAccount, item.TbAccount);
+                ddlAccount.Items.Add(li);
+            }
+        }
 
         protected void ShowInfo()
         {
@@ -35,6 +52,7 @@ namespace Mx.Web.adm
                 chbIsEnabled.Checked = modelAdmin.Enabled.Value;
                 ddlUserType.SelectedValue = modelAdmin.UserType;
                 txtRemark.Text = modelAdmin.Remark;
+                ddlAccount.SelectedValue = modelAdmin.TbAccount;
 
                 this.BtnSubmit.Visible = false;
                 this.BtnUpdate.Visible = true;
@@ -59,6 +77,7 @@ namespace Mx.Web.adm
             modelAdmin.Enabled = chbIsEnabled.Checked;
             modelAdmin.UserType = ddlUserType.SelectedValue;
             modelAdmin.Remark = txtRemark.Text.Trim();
+            modelAdmin.TbAccount = ddlAccount.SelectedValue;
 
             bllAdmin.Add(modelAdmin);
             Response.Write(PageFunc.ShowMsgJumpE("添加成功！", "AdminList.aspx"));
@@ -92,6 +111,7 @@ namespace Mx.Web.adm
                 modelAdmin.UserType = ddlUserType.SelectedValue;
                 
                 modelAdmin.Remark = txtRemark.Text.Trim();
+                modelAdmin.TbAccount = ddlAccount.SelectedValue;
 
                 bllAdmin.Update(modelAdmin);
                 Response.Write(PageFunc.ShowMsgJumpE("更新成功！", "AdminList.aspx"));

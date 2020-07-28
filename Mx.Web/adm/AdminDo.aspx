@@ -38,7 +38,18 @@
                             <asp:ListItem Value="操作员" Text="操作员"></asp:ListItem>                           
                             </asp:DropDownList>
                         </div>
-                    </div>                    
+                    </div>  
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            所属帐号</label>
+                        <div class="controls">
+                             <asp:DropDownList ID="ddlAccount" runat="server" style=" width:auto">
+                                <asp:ListItem Value="" Text="全部"></asp:ListItem>
+                                </asp:DropDownList>
+                        </div>
+                    </div>  
+                                      
                     <!-- Text input-->
                     <div class="control-group">
                         <label class="control-label">

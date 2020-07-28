@@ -41,6 +41,9 @@
                             <th data-sort-ignore="true">
                                 用户类型
                             </th>
+                             <th data-sort-ignore="true">
+                                所属帐号
+                            </th>
                             <th data-hide="phone" data-sort-ignore="true">
                                 备注
                             </th>
@@ -69,6 +72,9 @@
                                         <%#Eval("UserType")%>
                                     </td>
                                     <td>
+                                        <%#Eval("TbAccount")%>
+                                    </td>
+                                    <td>
                                         <%#Eval("Remark")%>
                                     </td>
                                     <td>
@@ -92,7 +98,7 @@
                             <FooterTemplate>       
                                 <asp:PlaceHolder ID="phEmptyData" runat="server" Visible='<%#bool.Parse((rpData.Items.Count==0).ToString())%>'>
                                     <tr>
-                                    <td style=" text-align:center" colspan="7">
+                                    <td style=" text-align:center" colspan="8">
                                         <div class="alert alert-info">                                          
                                           <strong>没有符合的数据！</strong> 
                                         </div>
@@ -104,7 +110,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7">
+                            <td colspan="8">
                                 <webdiyer:AspNetPager ID="ShowPager" runat="server" OnPageChanged="AspNetPager1_PageChanged"
                                     HorizontalAlign="left" ShowCustomInfoSection="Left" CustomInfoClass="pageCustom"
                                     CustomInfoHTML="共有  <b><font color='red'>%RecordCount%</font></b>  条记录 当前页<b><font color='red'>%CurrentPageIndex%</font>/%PageCount%</b>"

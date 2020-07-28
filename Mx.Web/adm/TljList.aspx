@@ -62,6 +62,8 @@
                                 <asp:ListItem Value="1" Text="非单份"></asp:ListItem> 
                             </asp:DropDownList>
 
+                            
+
                             <asp:LinkButton ID="btnSearch" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-warning">                       
                                 查询
                             </asp:LinkButton>

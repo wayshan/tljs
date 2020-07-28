@@ -119,7 +119,12 @@ namespace Mx.Web.Ajax
             if (con.Request["appkeyid"] != null)
             {
                 appkeyid = con.Request["appkeyid"].ToString();
+                modelAppKey = bllappkey.GetModel(int.Parse(appkeyid));
 
+                //根据appkeyid 读取   三个基础参数
+                siteid = modelAppKey.SiteId;
+                adzoneid = modelAppKey.AdzoneId;
+                setname = modelAppKey.TbAccount;
             }
             string id = con.Request["id"].ToString();
             if (id.IndexOf("http") != -1)
@@ -141,7 +146,7 @@ namespace Mx.Web.Ajax
 
             int total = 0;
             DateTime zcTime = DateTime.Now.AddMonths(-1);
-            modelAppKey = bllappkey.GetModel(int.Parse(appkeyid));
+            
             var plansList = bllPlans.GetList(1, int.MaxValue, ref total, m => m.item_id == id && m.zctime >= zcTime
             && (m.zhanghaos_ok.StartsWith(modelAppKey.TbAccount) ||
              m.zhanghaos_ok.EndsWith(modelAppKey.TbAccount) || m.zhanghaos_ok.Contains("#" + modelAppKey.TbAccount + "#")) && m.ifok == "正常", m => m.id);
