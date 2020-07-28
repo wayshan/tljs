@@ -170,8 +170,8 @@ namespace Mx.Web
                     {
                        model.zhanghaos_ok += "#" + zh;
                        model.zhanghaos_ok = model.zhanghaos_ok.Trim('#') ;
-                       List<string> tmplist = new List<string>(model.zhanghaos_doing.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
-                       if (!string.IsNullOrEmpty(model.zhanghaos_ok))
+                       List<string> tmplist = new List<string>();
+                        if (!string.IsNullOrEmpty(model.zhanghaos_doing))
                        {
                            tmplist = new List<string>(model.zhanghaos_doing.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
                        }

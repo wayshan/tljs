@@ -112,7 +112,8 @@
                                         生成时间：<%#Eval("dotime")%> <br />
                                         开始时间：<%#Eval("send_start_time")%> 结束时间：<%#Eval("send_end_time")%><br />
                                         佣金比例：<span id="biliold_<%#Eval("ID")%>"><%#Eval("commission_bili")%></span>%<br />
-                                        产品类型：<%#Eval("goodstype")%>
+                                        产品类型：<%#Eval("goodstype")%><br />
+                                        备注：<%#Eval("remark")%> 
                                     </td>  
                                     <td>
                                         <span class="ifokRemark" href="#" data-placement="bottom" data-toggle="tooltip" title="<%#Eval("remark")%>">

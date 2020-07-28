@@ -31,7 +31,7 @@
                     <!-- Text input-->
                     <div class="control-group">
                         <label class="control-label">
-                            所属帐号</label>
+                            推广位</label>
                         <div class="controls">
                             <asp:DropDownList ID="ddlAppKeyID" runat="server">                                                   
                             </asp:DropDownList>
@@ -51,11 +51,12 @@
                     <div class="control-group">
                         <label class="control-label">
                             佣金计划类型</label>
-                        <div class="controls">
+                        <div class="controls controls-row">
                             <asp:DropDownList ID="ddlCampaignType" ClientIDMode="Static" runat="server"> 
                              <asp:ListItem Value="MKT" Text="营销" ></asp:ListItem>
                              <asp:ListItem Value="DX" Text="定向" ></asp:ListItem>      
                             </asp:DropDownList>
+                            <span class="ifokplan" style="color:Red;"></span>
                         </div>
                     </div>
                     <div class="control-group">
@@ -392,6 +393,9 @@
                 })
 
         })
+        $("#ContentPage_ddlAppKeyID").change(function(){
+            $('.getGoodsInfo').click();
+        });
         $(".getGoodsInfo").click(function(){
             var gid = $("#goods_link").val();
             var appkeyid = $("#ContentPage_ddlAppKeyID").val();
@@ -427,10 +431,14 @@
                        $("#item_pic2>img").attr("src",goods.pic);
                        if(isDx==true||goods.campaignType=='DX')
                        {
-                            $("#ddlCampaignType").val('DX');
+                           $("#ddlCampaignType").val('DX');
+                           $(".ifokplan").text('已通过定向');
+                           $(".ifokplan").css("color","#ff910e");                           
                        }
                        else{
-                            $("#ddlCampaignType").val('MKT');
+                           $("#ddlCampaignType").val('MKT');
+                           $(".ifokplan").text('未通过的定向，请注意！！！');
+                           $(".ifokplan").css("color","#f70404");
                        }
                        $("#txtper_face").keyup();
                        $(".getGoodsInfo").text("读取数据");

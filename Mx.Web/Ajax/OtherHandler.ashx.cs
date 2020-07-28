@@ -15,7 +15,7 @@ namespace Mx.Web.Ajax
     public class OtherHandler : IHttpHandler, IRequiresSessionState
     {
 
-        Model.appkey modelappkey = new Model.appkey();
+        Model.appkey modelAppKey = new Model.appkey();
         BLL.appkey bllappkey = new BLL.appkey();
         BLL.plans bllPlans = new BLL.plans();
 
@@ -66,7 +66,7 @@ namespace Mx.Web.Ajax
             Model.TljInfo ModelTljInfo = new Model.TljInfo();
             ModelTljInfo = bllTljInfo.GetModel(int.Parse(id));
             if (ModelTljInfo != null)
-            {                
+            {
                 ModelTljInfo.ifget = true;
                 ModelTljInfo.gettime = dtNow;
             }
@@ -83,7 +83,6 @@ namespace Mx.Web.Ajax
             return res;
         }
 
-
         private OtherResult GetGoodsInfo(HttpContext con)
         {
             OtherResult res = new OtherResult();
@@ -91,6 +90,7 @@ namespace Mx.Web.Ajax
             string siteid = "";
             string adzoneid = "";
             string setname = "";
+            string appkeyid = "";
 
 
             if (con.Request["id"] == null)
@@ -118,16 +118,7 @@ namespace Mx.Web.Ajax
 
             if (con.Request["appkeyid"] != null)
             {
-                string appkeyid = con.Request["appkeyid"].ToString();
-                modelappkey = bllappkey.GetModel(int.Parse(appkeyid));
-
-
-
-
-                //根据appkeyid 读取   三个基础参数
-                siteid = modelappkey.SiteId;
-                adzoneid = modelappkey.AdzoneId;
-                setname = modelappkey.TbAccount;
+                appkeyid = con.Request["appkeyid"].ToString();
 
             }
             string id = con.Request["id"].ToString();
@@ -150,7 +141,10 @@ namespace Mx.Web.Ajax
 
             int total = 0;
             DateTime zcTime = DateTime.Now.AddMonths(-1);
-            var plansList = bllPlans.GetList(1, int.MaxValue, ref total, m => m.item_id == id && m.zctime >= zcTime, m => m.id);
+            modelAppKey = bllappkey.GetModel(int.Parse(appkeyid));
+            var plansList = bllPlans.GetList(1, int.MaxValue, ref total, m => m.item_id == id && m.zctime >= zcTime
+            && (m.zhanghaos_ok.StartsWith(modelAppKey.TbAccount) ||
+             m.zhanghaos_ok.EndsWith(modelAppKey.TbAccount) || m.zhanghaos_ok.Contains("#" + modelAppKey.TbAccount + "#")) && m.ifok == "正常", m => m.id);
             if (total > 0)
             {
                 obj.campaignType = "DX";
