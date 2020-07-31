@@ -4,20 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TljModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="TljModelStoreContainer">
-          <EntitySet Name="Admin" EntityType="TljModel.Store.Admin" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="appkey" EntityType="TljModel.Store.appkey" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="collectgoods" EntityType="TljModel.Store.collectgoods" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Orders" EntityType="TljModel.Store.Orders" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="plans" EntityType="TljModel.Store.plans" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TljInfo" EntityType="TljModel.Store.TljInfo" store:Type="Tables" Schema="dbo" />
-        </EntityContainer>
+    <Schema Namespace="TljModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="20" />
           <Property Name="UserPwd" Type="nvarchar" MaxLength="32" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -30,7 +22,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AppKey" Type="nvarchar" MaxLength="255" />
           <Property Name="AppSecret" Type="nvarchar" MaxLength="255" />
           <Property Name="AppName" Type="nvarchar" MaxLength="255" />
@@ -43,13 +35,13 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="qudao" Type="nvarchar" MaxLength="50" />
           <Property Name="goodsid" Type="nvarchar" MaxLength="255" />
           <Property Name="goodsname" Type="nvarchar" MaxLength="255" />
           <Property Name="goodspic" Type="nvarchar" MaxLength="255" />
-          <Property Name="perFace" Type="decimal" Scale="2" />
-          <Property Name="paymoney" Type="decimal" Scale="2" />
+          <Property Name="perFace" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="paymoney" Type="decimal" Precision="18" Scale="2" />
           <Property Name="campaigntype" Type="nvarchar" MaxLength="50" />
           <Property Name="coupon" Type="nvarchar" MaxLength="500" />
           <Property Name="totalNum" Type="int" />
@@ -60,8 +52,8 @@
           <Property Name="userTotalWinNumLimit" Type="int" />
           <Property Name="shopname" Type="nvarchar" MaxLength="255" />
           <Property Name="name" Type="nvarchar" MaxLength="255" />
-          <Property Name="postCouponPrice" Type="decimal" Scale="2" />
-          <Property Name="fanliAmount" Type="decimal" Scale="2" />
+          <Property Name="postCouponPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="fanliAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="maxCommissionRate" Type="decimal" Precision="5" Scale="2" />
           <Property Name="remark" Type="nvarchar" MaxLength="1000" />
           <Property Name="ifok" Type="nvarchar" MaxLength="50" />
@@ -72,7 +64,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ClickTime" Type="datetime" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
@@ -129,11 +121,11 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="item_id" Type="nvarchar" MaxLength="255" />
           <Property Name="goodsname" Type="nvarchar" MaxLength="255" />
           <Property Name="shopname" Type="nvarchar" MaxLength="255" />
-          <Property Name="PayMoney" Type="decimal" Scale="2" />
+          <Property Name="PayMoney" Type="decimal" Precision="18" Scale="2" />
           <Property Name="planname" Type="nvarchar" MaxLength="255" />
           <Property Name="planlink" Type="nvarchar" MaxLength="255" />
           <Property Name="campaignId" Type="nvarchar" MaxLength="255" />
@@ -152,14 +144,16 @@
           <Property Name="intro" Type="nvarchar" MaxLength="1000" />
           <Property Name="tdRatio" Type="decimal" Precision="5" Scale="2" />
           <Property Name="tdCoupon" Type="nvarchar" MaxLength="255" />
-          <Property Name="tdCouponPrice" Type="decimal" Scale="2" />
+          <Property Name="tdCouponPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="detectionTime" Type="datetime" />
+          <Property Name="qudao" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastOkTime" Type="datetime" />
         </EntityType>
         <EntityType Name="TljInfo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AppKeyID" Type="int" />
           <Property Name="goodsname" Type="nvarchar" MaxLength="255" />
           <Property Name="item_id" Type="nvarchar" MaxLength="255" />
@@ -199,7 +193,16 @@
           <Property Name="goodstype" Type="nvarchar" MaxLength="100" />
           <Property Name="campaigntype" Type="nvarchar" MaxLength="100" />
           <Property Name="PayMoney" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="qudao" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityContainer Name="TljModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="appkey" EntityType="Self.appkey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="collectgoods" EntityType="Self.collectgoods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="plans" EntityType="Self.plans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TljInfo" EntityType="Self.TljInfo" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -282,14 +285,15 @@
           <Property Type="String" Name="goodstype" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="campaigntype" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PayMoney" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="qudao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="CreateTime" />
-          <Property Type="DateTime" Name="ClickTime" />
+          <Property Type="DateTime" Name="CreateTime" Precision="3" />
+          <Property Type="DateTime" Name="ClickTime" Precision="3" />
           <Property Type="String" Name="ProductName" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ProductID" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OwnedShop" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -299,7 +303,7 @@
           <Property Type="String" Name="OrderType" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="PayMoney" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="Effect" Precision="8" Scale="2" />
-          <Property Type="DateTime" Name="SettlementTime" />
+          <Property Type="DateTime" Name="SettlementTime" Precision="3" />
           <Property Type="Decimal" Name="CommissionRate" Precision="5" Scale="2" />
           <Property Type="Decimal" Name="CommissionMoney" Precision="8" Scale="2" />
           <Property Type="String" Name="OrderNo" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -308,11 +312,11 @@
           <Property Type="String" Name="AdID" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="AdName" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LocalSettlement" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="LocalSettlementTime" />
+          <Property Type="DateTime" Name="LocalSettlementTime" Precision="3" />
           <Property Type="Int32" Name="AccountID" />
           <Property Type="String" Name="SetName" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LockinTime" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="LastUpdatetime" />
+          <Property Type="DateTime" Name="LastUpdatetime" Precision="3" />
           <Property Type="String" Name="Robot_Uin" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Robot_Fid" />
           <Property Type="Decimal" Name="Robot_Fanlibili" Precision="8" Scale="2" />
@@ -321,12 +325,12 @@
           <Property Type="Decimal" Name="Robot_UpShouRu" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="Robot_UpUpShouRu" Precision="8" Scale="2" />
           <Property Type="Int32" Name="Robot_IsComp" />
-          <Property Type="DateTime" Name="Robot_Comptime" />
-          <Property Type="DateTime" Name="Robot_Fid_Time" />
+          <Property Type="DateTime" Name="Robot_Comptime" Precision="3" />
+          <Property Type="DateTime" Name="Robot_Fid_Time" Precision="3" />
           <Property Type="Int32" Name="iflinshi" />
           <Property Type="String" Name="OrderNo_trade_id" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="ifapi333" />
-          <Property Type="DateTime" Name="ifapi" />
+          <Property Type="DateTime" Name="ifapi" Precision="3" />
           <Property Type="Int32" Name="ifweiqun" />
           <Property Type="String" Name="LUin" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="linshichuli" />
@@ -354,10 +358,10 @@
           <Property Type="String" Name="campaigntype" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="coupon" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="totalNum" />
-          <Property Type="DateTime" Name="creationTime" />
-          <Property Type="DateTime" Name="planCreatetljTime" />
-          <Property Type="DateTime" Name="sendStartTime" />
-          <Property Type="DateTime" Name="sendEndTime" />
+          <Property Type="DateTime" Name="creationTime" Precision="3" />
+          <Property Type="DateTime" Name="planCreatetljTime" Precision="3" />
+          <Property Type="DateTime" Name="sendStartTime" Precision="3" />
+          <Property Type="DateTime" Name="sendEndTime" Precision="3" />
           <Property Type="Int32" Name="userTotalWinNumLimit" />
           <Property Type="String" Name="shopname" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -366,7 +370,7 @@
           <Property Type="Decimal" Name="maxCommissionRate" Precision="5" Scale="2" />
           <Property Type="String" Name="remark" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ifok" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="zctime" />
+          <Property Type="DateTime" Name="zctime" Precision="3" />
           <Property Type="String" Name="goodstype" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="plans">
@@ -383,7 +387,7 @@
           <Property Type="String" Name="campaignId" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="userNumberId" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="shopkeeperId" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="zctime" />
+          <Property Type="DateTime" Name="zctime" Precision="3" />
           <Property Type="String" Name="zhanghaos_ok" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="zhanghaos_doing" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="zhanghaos_refuse" MaxLength="1000" FixedLength="false" Unicode="true" />
@@ -397,7 +401,9 @@
           <Property Type="Decimal" Name="tdRatio" Precision="5" Scale="2" />
           <Property Type="String" Name="tdCoupon" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="tdCouponPrice" Precision="18" Scale="2" />
-          <Property Type="DateTime" Name="detectionTime" />
+          <Property Type="DateTime" Name="detectionTime" Precision="3" />
+          <Property Name="qudao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastOkTime" Type="DateTime" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -436,6 +442,7 @@
           <EntitySetMapping Name="TljInfoes">
             <EntityTypeMapping TypeName="TljModel.TljInfo">
               <MappingFragment StoreEntitySet="TljInfo">
+                <ScalarProperty Name="qudao" ColumnName="qudao" />
                 <ScalarProperty Name="PayMoney" ColumnName="PayMoney" />
                 <ScalarProperty Name="campaigntype" ColumnName="campaigntype" />
                 <ScalarProperty Name="goodstype" ColumnName="goodstype" />
@@ -570,6 +577,8 @@
           <EntitySetMapping Name="plans">
             <EntityTypeMapping TypeName="TljModel.plans">
               <MappingFragment StoreEntitySet="plans">
+                <ScalarProperty Name="lastOkTime" ColumnName="lastOkTime" />
+                <ScalarProperty Name="qudao" ColumnName="qudao" />
                 <ScalarProperty Name="detectionTime" ColumnName="detectionTime" />
                 <ScalarProperty Name="tdCouponPrice" ColumnName="tdCouponPrice" />
                 <ScalarProperty Name="tdCoupon" ColumnName="tdCoupon" />

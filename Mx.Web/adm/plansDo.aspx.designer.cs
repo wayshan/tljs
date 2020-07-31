@@ -13,6 +13,15 @@ namespace Mx.Web.adm {
     public partial class plansDo {
         
         /// <summary>
+        /// txtplan_link 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtplan_link;
+        
+        /// <summary>
         /// goods_link 控件。
         /// </summary>
         /// <remarks>
@@ -83,15 +92,6 @@ namespace Mx.Web.adm {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtcampaignId;
-        
-        /// <summary>
-        /// txtplan_link 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtplan_link;
         
         /// <summary>
         /// txtquan_link 控件。

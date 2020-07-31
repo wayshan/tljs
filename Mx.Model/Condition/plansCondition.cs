@@ -9,6 +9,6 @@ namespace Mx.Model
     {
         public string goodsname { get; set; }
         public string shopname { get; set; }
-        public string ifok { get; set; }
+        public string ifok { get; set; }    
     }
 }

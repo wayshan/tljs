@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic; 
 using System.Data;
+using System.Linq;
 using System.Linq.Expressions;
 using Mx.Model;
 using Mx.Common;
@@ -137,6 +138,22 @@ namespace Mx.BLL
             {
                 searchPredicate = searchPredicate.And(m => con.Ifsingle == "1" ? m.total_num != 1 : m.total_num == 1);
                
+            }
+            if (!string.IsNullOrEmpty(con.AppName))
+            {
+                searchPredicate = searchPredicate.And(m => dal.db.appkeys.FirstOrDefault(a=>a.ID==m.AppKeyID && a.AppName.Contains(con.AppName))!=null);
+            }
+            if (!string.IsNullOrEmpty(con.setName))
+            {
+                searchPredicate = searchPredicate.And(m => dal.db.appkeys.FirstOrDefault(a => a.ID == m.AppKeyID && a.TbAccount.Contains(con.setName)) != null);
+            }
+            if (!string.IsNullOrEmpty(con.setName))
+            {
+                searchPredicate = searchPredicate.And(m => dal.db.appkeys.FirstOrDefault(a => a.ID == m.AppKeyID && a.TbAccount.Contains(con.setName)) != null);
+            }
+            if (con.goodstype!="-1")
+            {
+                searchPredicate = searchPredicate.And(m => (string.IsNullOrEmpty(con.goodstype) &&    m.goodstype == null) || m.goodstype==con.goodstype);
             }
             return searchPredicate;
         }

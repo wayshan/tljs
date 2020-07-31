@@ -23,8 +23,9 @@ namespace Mx.Web
             //};
             //Session[sessionAdminModel] = uModel;
 
-            if (Session[sessionAdminModel]==null && (Request.Url.ToString().ToLower().IndexOf("tljlist.aspx")!=-1 ||
-                Request.Url.ToString().ToLower().IndexOf("tljdo.aspx") != -1 ||Request.Url.ToString().ToLower().IndexOf("change.aspx") != -1))
+            string urls = "tljlist.aspx|tljdo.aspx|change.aspx|appkeylist.aspx|appkeydo.aspx|changepwd.aspx|collectgoodslist.aspx|orderslist.aspx|plansdo.aspx|planslist.aspx|productstat.aspx|tljstat.aspx";
+            string currentPage = System.IO.Path.GetFileName(Request.PhysicalPath).ToLower();
+            if (Session[sessionAdminModel]==null && urls.IndexOf(currentPage) !=-1 )
             {
                 if(Request.QueryString["zhanghao"]!=null&&Request.QueryString["mima"]!=null)
                 {

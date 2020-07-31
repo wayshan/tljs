@@ -3188,6 +3188,54 @@ namespace Mx.Model
         private Nullable<global::System.DateTime> _detectionTime;
         partial void OndetectionTimeChanging(Nullable<global::System.DateTime> value);
         partial void OndetectionTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String qudao
+        {
+            get
+            {
+                return _qudao;
+            }
+            set
+            {
+                OnqudaoChanging(value);
+                ReportPropertyChanging("qudao");
+                _qudao = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("qudao");
+                OnqudaoChanged();
+            }
+        }
+        private global::System.String _qudao;
+        partial void OnqudaoChanging(global::System.String value);
+        partial void OnqudaoChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> lastOkTime
+        {
+            get
+            {
+                return _lastOkTime;
+            }
+            set
+            {
+                OnlastOkTimeChanging(value);
+                ReportPropertyChanging("lastOkTime");
+                _lastOkTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("lastOkTime");
+                OnlastOkTimeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _lastOkTime;
+        partial void OnlastOkTimeChanging(Nullable<global::System.DateTime> value);
+        partial void OnlastOkTimeChanged();
 
         #endregion
 
@@ -4181,6 +4229,30 @@ namespace Mx.Model
         private Nullable<global::System.Decimal> _PayMoney;
         partial void OnPayMoneyChanging(Nullable<global::System.Decimal> value);
         partial void OnPayMoneyChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String qudao
+        {
+            get
+            {
+                return _qudao;
+            }
+            set
+            {
+                OnqudaoChanging(value);
+                ReportPropertyChanging("qudao");
+                _qudao = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("qudao");
+                OnqudaoChanged();
+            }
+        }
+        private global::System.String _qudao;
+        partial void OnqudaoChanging(global::System.String value);
+        partial void OnqudaoChanged();
 
         #endregion
 

@@ -124,8 +124,13 @@ namespace Mx.Web.adm
             {
                 con.setName = ddlAccount.SelectedValue;
             }
-
+            if (!string.IsNullOrEmpty(ddlrealshouru.SelectedValue))
+            {
+                con.realshouru = ddlrealshouru.SelectedValue;
+            }
             
+
+
             return con;
         }
 

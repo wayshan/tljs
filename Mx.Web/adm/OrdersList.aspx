@@ -59,6 +59,11 @@
                                 <asp:ListItem Value="" Text="全部"></asp:ListItem>
                             </asp:DropDownList> 
                             
+                            类型：<asp:DropDownList ID="ddlrealshouru" runat="server" style=" width:auto">
+                                <asp:ListItem Value="" Text="全部" Selected="True"></asp:ListItem>                                
+                                <asp:ListItem Value="1" Text="正常" ></asp:ListItem>
+                                <asp:ListItem Value="0" Text="免单"></asp:ListItem> 
+                            </asp:DropDownList>
 
                             <asp:LinkButton ID="btnSearch" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-warning">                       
                                 查询

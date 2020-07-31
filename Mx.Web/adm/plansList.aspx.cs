@@ -18,23 +18,11 @@ namespace Mx.Web.adm
             CheckAuth(new string[] { Codes.AdminRole.管理员 });
             if (!IsPostBack)
             {
+                if (Request.QueryString["sort"] != null)
+                {
+                    ddlsort.SelectedValue = Request.QueryString["sort"];
+                }
                 DataInfoBind();
-
-                //Model.collectgoods model = new collectgoods
-                //{
-                //    qudao = "渠道",
-                //    item_id = "产品ID",
-                //    goodsname = "产品名",
-                //    paymoney = 20.30m,
-                //    lijing = 4.50m,
-                //    shopname = "店铺名称",
-                //    msg = "msg",
-                //    campaigntype = "计划类型",
-                //    ifok = "有效",
-                //    zctime = DateTime.Now
-                //};
-                //string json = Newtonsoft.Json.JsonConvert.SerializeObject(model);
-
             }
         }
 
@@ -44,7 +32,19 @@ namespace Mx.Web.adm
             ShowPager.PageSize = PageSize;
             int total = 0;
             Model.plansCondition con = condition();
-            var list = bllplans.GetList(ShowPager.CurrentPageIndex, ShowPager.PageSize, ref total, con, p => ddlsort.SelectedValue == "2" ? p.tdRatio : p.id, false);
+            var list = new List<Model.plans>();
+            if (ddlsort.SelectedValue == "2")
+            {
+                list = bllplans.GetList(ShowPager.CurrentPageIndex, ShowPager.PageSize, ref total, con, p => p.lastOkTime, false);
+            }
+            else if (ddlsort.SelectedValue == "3")
+            {
+                list = bllplans.GetList(ShowPager.CurrentPageIndex, ShowPager.PageSize, ref total, con, p => p.lastOkTime, false);
+            }
+            else
+            {
+                list = bllplans.GetList(ShowPager.CurrentPageIndex, ShowPager.PageSize, ref total, con, p => p.id, false);
+            }
             ShowPager.RecordCount = total;
             this.rpData.DataSource = list;
             this.rpData.DataBind();
@@ -71,7 +71,7 @@ namespace Mx.Web.adm
             if (!string.IsNullOrEmpty(ddlifok.SelectedValue))
             {
                 con.ifok = ddlifok.SelectedValue;
-            }
+            }                                 
             return con;
         }
 

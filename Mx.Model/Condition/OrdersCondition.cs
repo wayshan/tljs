@@ -19,6 +19,8 @@ namespace Mx.Model
         public DateTime? endTime { get; set; }
 
         public string orderStatus { get; set; }
+        public string realshouru { get; set; }
         
+
     }
 }

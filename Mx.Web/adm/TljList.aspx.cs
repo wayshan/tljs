@@ -13,13 +13,27 @@ namespace Mx.Web.adm
     public partial class TljList : AdminPage
     {
         private BLL.TljInfo bllTljInfo = new BLL.TljInfo();
-       
+        BLL.appkey bllappkey = new BLL.appkey();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if (Request.QueryString["status"] != null)
+                {
+                    string status = Request.QueryString["status"].ToString();
+                    if (status == "正常")
+                    {
+                        ddlgoodstype.SelectedValue = "";
+                    }
+                    else
+                    {
+                        ddlgoodstype.SelectedValue = status;
+                    }                    
+                }
+
                 txtDateStart.Text = DateTime.Now.ToString("yyyy-MM-dd 00:00:00");
                 txtDateEnd.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd 23:59:59");
+                ddlDataBind();
                 DataInfoBind();
             }
         }
@@ -31,7 +45,7 @@ namespace Mx.Web.adm
             int total = 0;
             Model.TljInfoCondition con = condition();
             var list = bllTljInfo.GetList(ShowPager.CurrentPageIndex, ShowPager.PageSize, ref total, con, p => p.ID, false)
-                .Select(i => new{
+                .Select(i => new {
                     ID = i.ID,
                     goodsname = i.goodsname,
                     item_id = i.item_id,
@@ -50,7 +64,7 @@ namespace Mx.Web.adm
                     kouling = i.kouling,
                     ifget = i.ifget,
                     gettime = i.gettime,
-                    win_amount = i.win_amount,                    
+                    win_amount = i.win_amount,
                     win_num = i.win_num,
                     alipay_amount = i.alipay_amount,
                     pre_commission_amount = i.pre_commission_amount,
@@ -70,8 +84,11 @@ namespace Mx.Web.adm
                     quan_link = i.quan_link,
                     yjyl = Math.Round((((i.PayMoney.HasValue ? i.PayMoney.Value : 0.00m)
                     * (i.commission_bili.HasValue ? i.commission_bili.Value : 0.00m) / 100)
-                    * 0.88m - (i.per_face.HasValue ? i.per_face.Value : 0.00m)), 2, MidpointRounding.AwayFromZero)
-                   
+                    * 0.88m - (i.per_face.HasValue ? i.per_face.Value : 0.00m)), 2, MidpointRounding.AwayFromZero),
+                    AppName = new TljEntities().appkeys.FirstOrDefault(a => a.ID == i.AppKeyID) != null ?
+                    new TljEntities().appkeys.FirstOrDefault(a => a.ID == i.AppKeyID).AppName : "",
+                    TbAccount = new TljEntities().appkeys.FirstOrDefault(a => a.ID == i.AppKeyID) != null ?
+                    new TljEntities().appkeys.FirstOrDefault(a => a.ID == i.AppKeyID).TbAccount : "",
                 });
 
             
@@ -81,6 +98,31 @@ namespace Mx.Web.adm
             this.rpData.DataBind();
         }
 
+        /// <summary>
+        /// 下拉框数据绑定
+        /// </summary>
+        protected void ddlDataBind()
+        {
+            int total = 0;
+            var appkeyList = bllappkey.GetList(1, int.MaxValue, ref total,
+                new Model.appkeyCondition { }, w => w.ID, false);
+            foreach (var item in appkeyList)
+            {
+                ListItem li = new ListItem(item.AppName, item.AppName);
+                ddlAppKeyID.Items.Add(li);
+            }
+
+            var listAccount = appkeyList.GroupBy(m => new { m.TbAccount }).Select(m => m.Key).ToList();
+            foreach (var item in listAccount)
+            {
+                ListItem li = new ListItem(item.TbAccount, item.TbAccount);
+                if (item.TbAccount == CurrentLoginAdmin.TbAccount)
+                {
+                    li.Selected = true;
+                }
+                ddlAccount.Items.Add(li);
+            }
+        }
 
         protected void LbDel_Click(object sender, EventArgs e)
         {
@@ -127,6 +169,18 @@ namespace Mx.Web.adm
             {
                 con.Ifsingle = ddlIfsingle.SelectedValue;
             }
+
+            if (!string.IsNullOrEmpty(ddlAppKeyID.SelectedValue))
+            {
+                con.AppName = ddlAppKeyID.SelectedValue;
+            }
+            if (!string.IsNullOrEmpty(ddlAccount.SelectedValue))
+            {
+                con.setName = ddlAccount.SelectedValue;
+            }
+           
+            con.goodstype = ddlgoodstype.SelectedValue;
+           
             
             return con;
         }

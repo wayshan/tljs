@@ -48,7 +48,8 @@
                             排序：
                             <asp:DropDownList ID="ddlsort" runat="server" style=" width:auto">                                                                
                                 <asp:ListItem Value="1" Text="录入时间"></asp:ListItem>
-                                <asp:ListItem Value="2" Text="今日高拥比例"></asp:ListItem>                            
+                                <asp:ListItem Value="2" Text="今日高拥比例"></asp:ListItem>
+                                <asp:ListItem Value="3" Text="最新通过定向"></asp:ListItem>                            
                             </asp:DropDownList> 
 
                             <asp:LinkButton ID="btnSearch" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-warning">                       

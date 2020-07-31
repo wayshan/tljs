@@ -155,7 +155,19 @@ namespace Mx.BLL
                     }
                 }                
             }
-           
+            if (!string.IsNullOrEmpty(con.realshouru))
+            {
+                if (con.realshouru == "1")
+                {
+                    searchPredicate = searchPredicate.And(m => m.realshouru>0 || m.realshouru==null);
+                }
+                else
+                {
+                    searchPredicate = searchPredicate.And(m => m.realshouru <= 0);
+                }
+            }
+
+
             return searchPredicate;
         }
          

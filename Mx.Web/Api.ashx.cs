@@ -60,12 +60,22 @@ namespace Mx.Web
             ApiResult res = new ApiResult();
             try
             {
+                string strGetOk = GetRequest(con, "getok");
                 string strDt = GetRequest(con, "dt");
                 DateTime dt = DateTimeHelper.GetTime(strDt);
 
                 int total = 0;
                 List<Model.plansInfo> listRes = new List<Model.plansInfo>();
-                var list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt, m => m.id, false);
+
+                List<Model.plans> list = new List<Model.plans>();
+                if (string.IsNullOrEmpty(strGetOk))
+                {
+                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt, m => m.id, false);
+                }
+                else
+                {
+                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.zhanghaos_ok!="", m => m.lastOkTime, false);
+                }                
 
                 foreach (var item in list)
                 {
@@ -168,14 +178,15 @@ namespace Mx.Web
                 {
                     if (status == "已通过")
                     {
-                       model.zhanghaos_ok += "#" + zh;
-                       model.zhanghaos_ok = model.zhanghaos_ok.Trim('#') ;
-                       List<string> tmplist = new List<string>();
+                        model.zhanghaos_ok += "#" + zh;
+                        model.zhanghaos_ok = model.zhanghaos_ok.Trim('#');
+                        List<string> tmplist = new List<string>();
                         if (!string.IsNullOrEmpty(model.zhanghaos_doing))
-                       {
-                           tmplist = new List<string>(model.zhanghaos_doing.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
-                       }
-                       model.zhanghaos_doing = string.Join("#", tmplist.Where(i => i != zh));
+                        {
+                            tmplist = new List<string>(model.zhanghaos_doing.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries));
+                        }
+                        model.zhanghaos_doing = string.Join("#", tmplist.Where(i => i != zh));
+                        model.lastOkTime = DateTime.Now;
                     }
                     else if (status == "已申请")
                     {

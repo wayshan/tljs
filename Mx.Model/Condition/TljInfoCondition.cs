@@ -21,5 +21,12 @@ namespace Mx.Model
         public string Ifok { get; set; }
 
         public string Ifsingle { get; set; }
+
+        public string AppName { get; set; }
+        public string setName { get; set; }
+
+        public string goodstype { get; set; }
+        
+        
     }
 }

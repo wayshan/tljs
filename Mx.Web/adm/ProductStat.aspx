@@ -78,7 +78,10 @@
                             </th> 
 
                              <th data-sort-ignore="true" data-hide="phone"> 
-                                礼金
+                                合计礼金
+                            </th> 
+                            <th data-sort-ignore="true" data-hide="phone"> 
+                                平均礼金
                             </th> 
                              <th data-sort-ignore="true" data-hide="phone"> 
                                 实际收益
@@ -117,6 +120,10 @@
                                     <td>
                                         <%#Eval("totalLijin")%>
 
+                                    </td>
+                                     <td>
+                                        <%#Eval("adverLijin")%>
+
                                     </td> 
                                     <td>
                                         <%#Eval("totalRealshouru")%>
@@ -136,7 +143,7 @@
                             <FooterTemplate>       
                                 <asp:PlaceHolder ID="phEmptyData" runat="server" Visible='<%#bool.Parse((rpData.Items.Count==0).ToString())%>'>
                                     <tr>
-                                    <td style=" text-align:center" colspan="9">
+                                    <td style=" text-align:center" colspan="10">
                                         <div class="alert alert-info">                                          
                                           <strong>没有符合的数据！</strong> 
                                         </div>
@@ -153,7 +160,7 @@
                                 <asp:TextBox ID="txtPageSize" Width="40" MaxLength="6" Text="30" runat="server" 
                                      AutoPostBack="True" ontextchanged="txtPageSize_TextChanged"></asp:TextBox>
                             </td>
-                            <td colspan="8">
+                            <td colspan="9">
                                 <webdiyer:AspNetPager ID="ShowPager" runat="server" OnPageChanged="AspNetPager1_PageChanged"
                                     HorizontalAlign="left" ShowCustomInfoSection="Left" CustomInfoClass="pageCustom"
                                     CustomInfoHTML="共有  <b><font color='red'>%RecordCount%</font></b>  条记录 当前页<b><font color='red'>%CurrentPageIndex%</font>/%PageCount%</b>"

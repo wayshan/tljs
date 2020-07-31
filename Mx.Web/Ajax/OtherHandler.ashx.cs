@@ -146,17 +146,22 @@ namespace Mx.Web.Ajax
 
             int total = 0;
             DateTime zcTime = DateTime.Now.AddMonths(-1);
-            
-            var plansList = bllPlans.GetList(1, int.MaxValue, ref total, m => m.item_id == id && m.zctime >= zcTime
-            && (m.zhanghaos_ok.StartsWith(modelAppKey.TbAccount) ||
-             m.zhanghaos_ok.EndsWith(modelAppKey.TbAccount) || m.zhanghaos_ok.Contains("#" + modelAppKey.TbAccount + "#")) && m.ifok == "正常", m => m.id);
-            if (total > 0)
+
+            var plansList = bllPlans.GetList(1, int.MaxValue, ref total, m => m.item_id == id && m.zctime >= zcTime, m => m.id);
+            var plansListOk = plansList.Where(m => (m.zhanghaos_ok.StartsWith(modelAppKey.TbAccount) ||
+             m.zhanghaos_ok.EndsWith(modelAppKey.TbAccount) || m.zhanghaos_ok.Contains("#" + modelAppKey.TbAccount + "#")) && m.ifok == "正常").ToList();         
+
+            if (plansListOk.Count > 0)
             {
                 obj.campaignType = "DX";
             }
-            else
+            else if (total > 0)
             {
                 obj.campaignType = "MKT";
+            }
+            else
+            {
+                obj.campaignType = "";
             }
             res.IsSuccess = true;
             res.Message = JsonHelper.JsonSerializer<object>(obj);

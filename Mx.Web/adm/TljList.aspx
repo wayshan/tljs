@@ -61,8 +61,21 @@
                                 <asp:ListItem Value="0" Text="单份" ></asp:ListItem>
                                 <asp:ListItem Value="1" Text="非单份"></asp:ListItem> 
                             </asp:DropDownList>
+                            产品类型：<asp:DropDownList ID="ddlgoodstype" runat="server" style=" width:auto">
+                                <asp:ListItem Value="-1" Text="全部" Selected="True"></asp:ListItem>                                
+                                <asp:ListItem Value="" Text="正常" ></asp:ListItem>
+                                <asp:ListItem Value="免单" Text="免单"></asp:ListItem> 
+                                <asp:ListItem Value="负" Text="负"></asp:ListItem> 
+                            </asp:DropDownList>
 
-                            
+                            帐号：<asp:DropDownList ID="ddlAccount" runat="server" style=" width:auto">
+                                <asp:ListItem Value="" Text="全部"></asp:ListItem>
+                            </asp:DropDownList> 
+                           
+                           推广位：<asp:DropDownList ID="ddlAppKeyID" runat="server" style=" width:auto">
+                                <asp:ListItem Value="" Text="全部"></asp:ListItem> 
+                            </asp:DropDownList> 
+
 
                             <asp:LinkButton ID="btnSearch" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-warning">                       
                                 查询
@@ -105,16 +118,14 @@
                                     <td>
                                         <a href="https://detail.tmall.com/item.htm?id=<%#Eval("item_id")%>" target="_blank" style=" width:100px;height:100px;"  >
                                         商品名称：<%#Eval("goodsname")%></a><br />
-                                        淘礼金名称：<%#Eval("name")%><br />
-                                        商品ID：<%#Eval("item_id")%><%#Eval("campaigntype")!=null && Eval("campaigntype").ToString()=="DX"?"<span style='color:Red;font-weight:bold'>（定向计划）</span>":""%><br />
-                                        发放个数：<%#Eval("total_num")%><br />
-                                        礼金金额：<%#Eval("per_face")%>元　　非礼金券后价<%#Eval("PayMoney")%>元　　盈利：<%#Eval("yjyl")%>元<br />
-                                        限领个数：<%#Eval("user_total_win_num_limit")%><br />
+                                        淘礼金名称：<%#Eval("name")%>　　商品ID：<%#Eval("item_id")%><%#Eval("campaigntype")!=null && Eval("campaigntype").ToString()=="DX"?"<span style='color:Red;font-weight:bold'>（定向计划）</span>":""%><br />                                 
+                                        发放个数：<%#Eval("total_num")%>　　 限领个数：<%#Eval("user_total_win_num_limit")%><br />
+                                        礼金金额：<%#Eval("per_face")%>元　　非礼金券后价<%#Eval("PayMoney")%>元　　盈利：<%#Eval("yjyl")%>元<br />                                       
                                         创建时间：<%#Eval("createtime")%> 录入时间<%#Eval("zctime")%> <br />
                                         生成时间：<%#Eval("dotime")%> <br />
                                         开始时间：<%#Eval("send_start_time")%> 结束时间：<%#Eval("send_end_time")%><br />
-                                        佣金比例：<span id="biliold_<%#Eval("ID")%>"><%#Eval("commission_bili")%></span>%<br />
-                                        产品类型：<%#Eval("goodstype")%><br />
+                                        佣金比例：<span id="biliold_<%#Eval("ID")%>"><%#Eval("commission_bili")%></span>%　　产品类型：<%#Eval("goodstype")%><br />                                        
+                                        所属帐号：<%#Eval("TbAccount")%>　　推广位：<%#Eval("AppName")%><br />                                        
                                         备注：<%#Eval("remark")%> 
                                     </td>  
                                     <td>

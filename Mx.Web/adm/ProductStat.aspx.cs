@@ -53,6 +53,8 @@ namespace Mx.Web.adm
                     totalOrderNums = m.Count(),
                     totalValidOrderNums = m.Where(p => p.OrderStatus == "订单付款" || p.OrderStatus == "订单结算").Count(),
                     totalReturnOrderNums = m.Where(p => p.OrderStatus == "订单失效").Count(),
+                    adverLijin = m.Where(p => p.OrderStatus == "订单付款" || p.OrderStatus == "订单结算").Count() > 0 ?
+                    Convert.ToDecimal(Math.Round(m.Sum(p => p.lijin.HasValue ? p.lijin.Value : 0.00m) / (m.Where(p => p.OrderStatus == "订单付款" || p.OrderStatus == "订单结算").Count()),    2,MidpointRounding.AwayFromZero)) : 0.00m                    
                 }).OrderByDescending(m => m.totalEffect);
 
             var list = iEnumerale.Skip((ShowPager.CurrentPageIndex - 1) * ShowPager.PageSize).Take(ShowPager.PageSize).ToList();
@@ -177,6 +179,8 @@ namespace Mx.Web.adm
                    totalOrderNums = m.Count(),
                    totalValidOrderNums = m.Where(p => p.OrderStatus == "订单付款" || p.OrderStatus == "订单结算").Count(),
                    totalReturnOrderNums = m.Where(p => p.OrderStatus == "订单失效").Count(),
+                   adverLijin = m.Where(p => p.OrderStatus == "订单付款" || p.OrderStatus == "订单结算").Count() > 0 ?
+                    Convert.ToDecimal(Math.Round(m.Sum(p => p.lijin.HasValue ? p.lijin.Value : 0.00m) / (m.Where(p => p.OrderStatus == "订单付款" || p.OrderStatus == "订单结算").Count()), 2, MidpointRounding.AwayFromZero)) : 0.00m
                }).OrderByDescending(m => m.totalEffect);
 
 
@@ -192,6 +196,7 @@ namespace Mx.Web.adm
                     totalEffect = i.totalEffect,
                     totalValidEffect = i.totalValidEffect,
                     totalLijin = i.totalLijin,
+                    adverLijin = i.adverLijin,
                     totalRealshouru = i.totalRealshouru,
                     totalOrderNums = i.totalOrderNums,
                     totalValidOrderNums = i.totalValidOrderNums,
@@ -208,7 +213,8 @@ namespace Mx.Web.adm
             ht.Add("OwnedShop", "店铺名");
             ht.Add("totalEffect", "全部佣金");
             ht.Add("totalValidEffect", "有效佣金");
-            ht.Add("totalLijin", "礼金");
+            ht.Add("totalLijin", "合计礼金");
+            ht.Add("adverLijin", "平均礼金"); 
             ht.Add("totalRealshouru", "实际收益");
             ht.Add("totalOrderNums", "全部订单");
             ht.Add("totalValidOrderNums", "有效订单");

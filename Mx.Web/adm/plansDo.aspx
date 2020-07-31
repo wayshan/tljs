@@ -13,7 +13,7 @@
             <ul class="breadcrumb">
                 <li><i class="icon-home"></i><a href="#">首页</a> <span class="icon-angle-right"></span>
                 </li>
-                <li><a href="TljList.aspx">转换记录</a> <span class="icon-angle-right"></span></li>
+                <li><a href="plansDo.aspx">添加定向计划</a> <span class="icon-angle-right"></span></li>
             </ul>
             <!-- END BREADCRUMBS -->
         </div>
@@ -28,6 +28,14 @@
             </div>
             <div class="body">
                 <fieldset class="span8 offset2"> 
+                    
+                     <div class="control-group" >
+                        <label class="control-label">
+                            计划链接</label>
+                        <div class="controls">
+                            <asp:TextBox ID="txtplan_link" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="计划链接"></asp:TextBox>
+                        </div>
+                    </div>  
                     <div class="control-group">
                         <label class="control-label">
                             商品链接：</label>
@@ -73,24 +81,18 @@
                         <label class="control-label">
                             计划名称</label>
                         <div class="controls">
-                            <asp:TextBox ID="txtplan_name" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="优惠券链接"></asp:TextBox>
+                            <asp:TextBox ID="txtplan_name" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="计划名称"></asp:TextBox>
                         </div>
                     </div> 
                  <div class="control-group" >
                         <label class="control-label">
                             计划id</label>
                         <div class="controls">
-                            <asp:TextBox ID="txtcampaignId" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="优惠券链接"></asp:TextBox>
+                            <asp:TextBox ID="txtcampaignId" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="计划id"></asp:TextBox>
                         </div>
                     </div>   
 
-                     <div class="control-group" >
-                        <label class="control-label">
-                            计划链接</label>
-                        <div class="controls">
-                            <asp:TextBox ID="txtplan_link" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="优惠券链接"></asp:TextBox>
-                        </div>
-                    </div>  
+                    
                     
                       <div class="control-group">
                         <label class="control-label">

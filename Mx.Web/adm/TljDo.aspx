@@ -435,10 +435,14 @@
                            $(".ifokplan").text('已通过定向');
                            $(".ifokplan").css("color","#ff910e");                           
                        }
-                       else{
+                       else if(goods.campaignType=='MKT')
+                       {
                            $("#ddlCampaignType").val('MKT');
                            $(".ifokplan").text('未通过的定向，请注意！！！');
                            $(".ifokplan").css("color","#f70404");
+                       }
+                       else{
+                           $("#ddlCampaignType").val('MKT');
                        }
                        $("#txtper_face").keyup();
                        $(".getGoodsInfo").text("读取数据");
