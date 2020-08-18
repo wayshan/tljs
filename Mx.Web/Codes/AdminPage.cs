@@ -23,6 +23,10 @@ namespace Mx.Web
             //};
             //Session[sessionAdminModel] = uModel;
 
+            if (Request.QueryString["zhanghaoid"] != null)
+            {
+                Response.Cookies["zhanghaoid"].Value = Request.QueryString["zhanghaoid"].ToString();
+            }
             string urls = "tljlist.aspx|tljdo.aspx|change.aspx|appkeylist.aspx|appkeydo.aspx|changepwd.aspx|collectgoodslist.aspx|orderslist.aspx|plansdo.aspx|planslist.aspx|productstat.aspx|tljstat.aspx";
             string currentPage = System.IO.Path.GetFileName(Request.PhysicalPath).ToLower();
             if (Session[sessionAdminModel]==null && urls.IndexOf(currentPage) !=-1 )
