@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Mx.Common;
+using System.Text.RegularExpressions;
 
 namespace Mx.Web.adm
 {
@@ -44,7 +45,18 @@ namespace Mx.Web.adm
 
 
         private void add()
-        {           
+        {            
+            string planLink = txtplan_link.Text.Trim();
+            string camId = "";            
+            Regex reg = new Regex("campaignId=(.+)&?");
+            Match match = reg.Match(planLink);
+            camId = match.Groups[1].Value;
+            var model = bllplans.GetModel(p => p.planlink.ToLower()==planLink || p.campaignId == camId);
+            if (model != null)
+            {
+                PageFunc.AjaxAlert(this.Page, "计划链接已存在！");
+                return;
+            }
             modelplans = new Model.plans();
             modelplans.item_id = txtitem_id.Text.Trim();
             modelplans.goodsname = txtgoodsname.Text.Trim();
@@ -55,6 +67,11 @@ namespace Mx.Web.adm
             modelplans.coupon_url = txtquan_link.Text.Trim();
             modelplans.commission_dx = txtcommission_dx.Text.Trim();
             modelplans.commission_MKT = txtcommission_MKT.Text.Trim();
+            modelplans.ifok = "正常";
+            modelplans.zctime = DateTime.Now;
+            decimal paymoney = 0m;
+            decimal.TryParse(txtPayMoney.Text.Trim(), out paymoney);
+            modelplans.PayMoney = paymoney;
 
             bllplans.Add(modelplans);
             Response.Write(PageFunc.ShowMsgJumpE("添加成功！", "plansList.aspx"));

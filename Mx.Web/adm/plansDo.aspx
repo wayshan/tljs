@@ -84,21 +84,27 @@
                             <asp:TextBox ID="txtplan_name" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="计划名称"></asp:TextBox>
                         </div>
                     </div> 
-                 <div class="control-group" >
+                   <div class="control-group" >
                         <label class="control-label">
                             计划id</label>
-                        <div class="controls">
+                        <div class="controls"> 
                             <asp:TextBox ID="txtcampaignId" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="计划id"></asp:TextBox>
                         </div>
-                    </div>   
-
+                    </div> 
                     
-                    
-                      <div class="control-group">
+                   <div class="control-group">
                         <label class="control-label">
                             优惠券链接(选填)</label>
                         <div class="controls">
                             <asp:TextBox ID="txtquan_link" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="优惠券链接"></asp:TextBox>
+                        </div>
+                    </div>   
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            付款金额</label>
+                        <div class="controls">
+                            <asp:TextBox ID="txtPayMoney" ClientIDMode="Static" class="input-block-level" runat="server" placeholder="付款金额"></asp:TextBox>
                         </div>
                     </div>                  
                     
@@ -175,18 +181,7 @@
     <script>
         var isDx = false;
         var rulesOpts = {
-            <%=txtitem_id.UniqueID %>: {
-                required: true
-            },
-            <%=txtgoodsname.UniqueID %>: {
-                required: true
-            },
-            <%=txtplan_name.UniqueID %>: {
-                required: true
-            },
-            <%=txtcampaignId.UniqueID %>: {
-                required: true
-            },
+            
             <%=txtplan_link.UniqueID %>: {
                 required: true
             },

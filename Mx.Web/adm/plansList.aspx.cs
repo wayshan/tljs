@@ -65,6 +65,7 @@ namespace Mx.Web.adm
         {
             Model.plansCondition con = new Model.plansCondition
             {
+                item_id = this.txtitem_id.Text.Trim(),
                 goodsname = this.txtgoodsname.Text.Trim(),
                 shopname = this.txtshopname.Text.Trim()
             };

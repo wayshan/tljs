@@ -20,7 +20,7 @@ namespace Mx.Web
             //    UserName = u.UserName,
             //    UserType = Codes.AdminRole.管理员,
             //    TbAccount = "S1"
-            //};
+            //}; 
             //Session[sessionAdminModel] = uModel;
 
             if (Request.QueryString["zhanghaoid"] != null)

@@ -70,11 +70,11 @@ namespace Mx.Web
                 List<Model.plans> list = new List<Model.plans>();
                 if (string.IsNullOrEmpty(strGetOk))
                 {
-                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt, m => m.id, false);
+                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.ifok=="正常", m => m.id, false);
                 }
                 else
                 {
-                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.zhanghaos_ok!="", m => m.lastOkTime, false);
+                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.zhanghaos_ok!="" && m.ifok == "正常", m => m.lastOkTime, false);
                 }                
 
                 foreach (var item in list)
@@ -229,7 +229,11 @@ namespace Mx.Web
         /// <returns></returns>
         public string GetRequest(HttpContext content, string key, string defaultValue = "")
         {
-            if (content.Request[key] != null)
+            if (content.Request.HttpMethod == "POST")
+            {
+                return content.Request.Form[key].ToString();
+            }
+            else if (content.Request[key] != null)
             {
                 return content.Request[key].ToString();
             }
@@ -244,7 +248,11 @@ namespace Mx.Web
         /// <returns></returns>
         public int GetRequestInt(HttpContext content, string key, int defaultValue = 0)
         {
-            if (content.Request[key] != null)
+            if (content.Request.HttpMethod == "POST")
+            {
+                int.TryParse(content.Request.Form[key].ToString(), out defaultValue);               
+            }
+            else if(content.Request[key] != null)
             {
                 int.TryParse(content.Request[key].ToString(), out defaultValue);
             }

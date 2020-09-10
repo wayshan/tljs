@@ -99,6 +99,10 @@ namespace Mx.BLL
         protected Expression<Func<Model.plans, bool>> Where(plansCondition con)
         {
             var searchPredicate = PredicateBuilder.True<Model.plans>();
+            if (!string.IsNullOrEmpty(con.item_id))
+            {
+                searchPredicate = searchPredicate.And(m => m.item_id.Equals(con.item_id));
+            }
             if (!string.IsNullOrEmpty(con.goodsname))
             {
                 searchPredicate = searchPredicate.And(m => m.goodsname.Contains(con.goodsname));

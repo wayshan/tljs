@@ -36,6 +36,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="dataTables_search" style=" margin-bottom:5px">                                                   
+                            商品名称：<asp:TextBox ID="txtitem_id" runat="server"></asp:TextBox>
                             商品名称：<asp:TextBox ID="txtgoodsname" runat="server"></asp:TextBox> 
                             店铺名称：<asp:TextBox ID="txtshopname" runat="server"></asp:TextBox> 
                            
