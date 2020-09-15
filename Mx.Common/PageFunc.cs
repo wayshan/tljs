@@ -720,6 +720,7 @@ namespace Mx.Common
                 if (string.IsNullOrWhiteSpace(text[i].ToString()) || (int)text[i] > 127)
                 {
                     iResult = i;
+                    break;
                 }
                 else
                 {

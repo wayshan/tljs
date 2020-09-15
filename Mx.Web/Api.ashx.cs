@@ -226,7 +226,7 @@ namespace Mx.Web
                                         {
                                             int tempIndex1 = hc.data.coupon_info.IndexOf("减");
                                             int tempIndex2 = hc.data.coupon_info.IndexOf("元");
-                                            string couponPrice = hc.data.coupon_info.Substring(tempIndex1, tempIndex2 - tempIndex1);
+                                            string couponPrice = hc.data.coupon_info.Substring(tempIndex1+1, tempIndex2 - tempIndex1-1);
                                             item.coupon_price = couponPrice;
                                             item.PayMoney = decimal.Parse(hc.data.zk_final_price) - decimal.Parse(couponPrice);
                                         }
