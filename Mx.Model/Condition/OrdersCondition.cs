@@ -20,7 +20,8 @@ namespace Mx.Model
 
         public string orderStatus { get; set; }
         public string realshouru { get; set; }
-        
+
+        public string OrderNo { get; set; }
 
     }
 }

@@ -707,6 +707,48 @@ namespace Mx.Common
             return tempString;
         }
 
+        /// <summary>
+        /// 获取字符串中，空格或中文的索引
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static int getIndex(string text)
+        {
+            int iResult = text.Length - 1;
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(text[i].ToString()) || (int)text[i] > 127)
+                {
+                    iResult = i;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return iResult;
+        }
+
+        /// <summary>
+        /// 获取url字符串参数，返回参数值字符串
+        /// </summary>
+        /// <param name="name">参数名称</param>
+        /// <param name="url">url字符串</param>
+        /// <returns></returns>
+        public static string GetQueryString(string name, string url)
+        {
+            Regex re = new Regex(@"(^|&)?(\w+)=([^&]+)(&|$)?", RegexOptions.Compiled);
+            MatchCollection mc = re.Matches(url);
+            foreach (Match m in mc)
+            {
+                if (m.Result("$2").Equals(name))
+                {
+                    return m.Result("$3");
+                }
+            }
+            return "";
+        }
+
 
     }
 

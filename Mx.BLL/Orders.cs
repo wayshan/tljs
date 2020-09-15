@@ -167,7 +167,10 @@ namespace Mx.BLL
                 }
             }
 
-
+            if (!string.IsNullOrEmpty(con.OrderNo))
+            {
+               searchPredicate = searchPredicate.And(m => m.OrderNo.Contains(con.OrderNo) );                
+            }
             return searchPredicate;
         }
          

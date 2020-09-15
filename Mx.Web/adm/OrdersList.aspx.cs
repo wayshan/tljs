@@ -128,8 +128,11 @@ namespace Mx.Web.adm
             {
                 con.realshouru = ddlrealshouru.SelectedValue;
             }
+            if (!string.IsNullOrEmpty(txtOrderNo.Text))
+            {
+                con.OrderNo = txtOrderNo.Text;
+            }
             
-
 
             return con;
         }

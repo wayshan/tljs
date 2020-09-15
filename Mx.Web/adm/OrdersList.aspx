@@ -37,6 +37,7 @@
                     <div class="span12">
                         <div class="dataTables_search" style=" margin-bottom:5px">                                                   
                             商品名称、商品ID: <asp:TextBox ID="txtKeyWords" runat="server"></asp:TextBox> 
+                            订单编号：<asp:TextBox ID="txtOrderNo" runat="server"></asp:TextBox> 
                             <asp:DropDownList ID="ddlDateTime" runat="server" style=" width:auto"> 
                                 <asp:ListItem Value="创建时间" Text="创建时间"></asp:ListItem>  
                                 <asp:ListItem Value="结算时间" Text="结算时间"></asp:ListItem>                               
@@ -91,6 +92,9 @@
                     <thead>
                         <tr>  
                             <th data-hide="phone" data-sort-ignore="true">
+                                订单编号
+                            </th> 
+                            <th data-hide="phone" data-sort-ignore="true">
                                 商品
                             </th> 
                             <th data-sort-ignore="true">
@@ -120,6 +124,9 @@
                         <asp:Repeater ID="rpData" runat="server">
                             <ItemTemplate>
                                 <tr>
+                                    <td>
+                                         <%#Eval("OrderNo")%>
+                                    </td>  
                                     <td style="width:100px">
                                        <img src="<%#Eval("pic")%>" style="width:100px;height:100px;" onerror="this.src='/assets/img/nopic.jpg'"/>  
                                     </td>
@@ -156,7 +163,7 @@
                             <FooterTemplate>       
                                 <asp:PlaceHolder ID="phEmptyData" runat="server" Visible='<%#bool.Parse((rpData.Items.Count==0).ToString())%>'>
                                     <tr>
-                                    <td style=" text-align:center" colspan="8">
+                                    <td style=" text-align:center" colspan="9">
                                         <div class="alert alert-info">                                          
                                           <strong>没有符合的数据！</strong> 
                                         </div>
@@ -173,7 +180,7 @@
                                 <asp:TextBox ID="txtPageSize" Width="40" MaxLength="6" Text="30" runat="server" 
                                      AutoPostBack="True" ontextchanged="txtPageSize_TextChanged"></asp:TextBox>
                             </td>
-                            <td colspan="7">
+                            <td colspan="8">
                                 <webdiyer:AspNetPager ID="ShowPager" runat="server" OnPageChanged="AspNetPager1_PageChanged"
                                     HorizontalAlign="left" ShowCustomInfoSection="Left" CustomInfoClass="pageCustom"
                                     CustomInfoHTML="共有  <b><font color='red'>%RecordCount%</font></b>  条记录 当前页<b><font color='red'>%CurrentPageIndex%</font>/%PageCount%</b>"

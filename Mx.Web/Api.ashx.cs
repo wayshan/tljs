@@ -7,6 +7,11 @@ using Mx.Web.BaseClass;
 using System.Data;
 using System.Configuration;
 using Mx.Common;
+using System.Text;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Mx.Model.Api;
+using System.Data.Objects;
 
 namespace Mx.Web
 {
@@ -22,7 +27,22 @@ namespace Mx.Web
             ApiResult result = new ApiResult();
             try
             {
-                string action = GetRequest(context, "act").ToLower();
+                string action = "";
+                dynamic oJson = "";
+                if (context.Request.HttpMethod == "POST")
+                {
+                    Stream s = context.Request.InputStream;
+                    byte[] b = new byte[s.Length];
+                    s.Read(b, 0, (int)s.Length);
+                    string strJsonInfo = Encoding.UTF8.GetString(b);
+                    //LogHelper.Debug(strJsonInfo, typeof(Api));
+                    oJson = JObject.Parse(strJsonInfo);
+                    action = oJson.Event.ToString().ToLower();
+                }
+                else if (context.Request.HttpMethod == "GET")
+                {
+                    action = GetRequest(context, "act").ToLower();
+                }            
                 switch (action)
                 {
                     case "getplans":
@@ -31,6 +51,10 @@ namespace Mx.Web
                     //添加高佣金计划
                     case "upplans":
                         result = UpPlans(context);
+                        break;
+                    //处理链接内容
+                    case "deallink":
+                        result = DealLink(oJson);
                         break;
                     //更新帐号
                     case "updatezh":
@@ -115,7 +139,7 @@ namespace Mx.Web
             catch (Exception e)
             {
                 res.success = false;
-                res.message = "添加失败" + e.Message;
+                res.message = "操作失败" + e.Message;
             }
 
             return res;
@@ -152,6 +176,123 @@ namespace Mx.Web
             return res;
 
         }
+
+        private ApiResult DealLink(dynamic json)
+        {
+            ApiResult res = new ApiResult();
+            try
+            {
+                BLL.plans bllPlans = new BLL.plans();
+                rootDto<Model.Api.message> dto = JsonConvert.DeserializeObject<rootDto<Model.Api.message>>(json.ToString());
+                DateTime dtNow = DateTime.Now;
+                DateTime dtToDay = DateTime.Parse(dtNow.ToString("yyyy-MM-dd"));
+                string strMsg = dto.Data.msg;
+                string[] strArr = strMsg.Split(new string[] { "http" }, StringSplitOptions.None);
+                List<string> aLink = new List<string>();
+                for (int i = 0; i < strArr.Length; i++)
+                {
+                    if (i == 0 && string.IsNullOrEmpty(strArr[0]))
+                    {
+                        continue;
+                    }
+                    string strItem = strArr[i];
+                    int index =PageFunc.getIndex(strItem);
+                    string strLink = string.Format("http{0}", strItem.Substring(0, index));
+                    if (strLink.IndexOf("uland.taobao.com") != -1)
+                    {
+
+                    }
+                    else if (strLink.IndexOf("detail.tmall.com") != -1)
+                    {
+                        string itemId = PageFunc.GetQueryString("id", strLink);
+                        string strContent = HttpHelper.HttpGet("http://g5.vipdamai.net/hcapi.ashx?gid="+itemId);
+                        hcRoot hc = JsonConvert.DeserializeObject<hcRoot>(strContent);
+                        if (hc.error == "0")
+                        {
+                            if (hc.data != null)
+                            {
+                                
+                                int total = 0;
+                                var list = bllPlans.GetList(1, int.MaxValue, ref total, p => p.userNumberId == hc.data.seller_id && EntityFunctions.CreateDateTime(p.zctime.Value.Year, p.zctime.Value.Month, p.zctime.Value.Day, 0, 0, 0) == dtToDay, p => p.id);
+
+                                if (total > 0)
+                                {
+                                    foreach (var item in list)
+                                    {
+                                        item.item_id = hc.data.num_iid;
+                                        item.goodsname = hc.data.title;
+                                        item.shopname = hc.data.shop_title;
+                                        if (!string.IsNullOrEmpty(hc.data.coupon_info))
+                                        {
+                                            int tempIndex1 = hc.data.coupon_info.IndexOf("减");
+                                            int tempIndex2 = hc.data.coupon_info.IndexOf("元");
+                                            string couponPrice = hc.data.coupon_info.Substring(tempIndex1, tempIndex2 - tempIndex1);
+                                            item.coupon_price = couponPrice;
+                                            item.PayMoney = decimal.Parse(hc.data.zk_final_price) - decimal.Parse(couponPrice);
+                                        }
+                                        else
+                                        {
+                                            item.PayMoney = decimal.Parse(hc.data.zk_final_price);
+                                        }
+                                        bllPlans.Update(item);
+                                    }
+                                }
+                                else
+                                {
+                                    var item = new Model.plans();
+                                    item.item_id = itemId;
+                                    item.goodsname = hc.data.title;
+                                    item.shopname = hc.data.shop_title;
+                                    item.pic = hc.data.pict_url;
+                                    item.zctime = dtNow;
+                                    item.coupon_url = hc.data.coupon_click_url;
+                                    item.userNumberId = hc.data.seller_id;
+                                    item.ifok = "待补充";
+                                    bllPlans.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    else if (strLink.IndexOf("pub.alimama.com") != -1)
+                    {
+                        string userNumberId = PageFunc.GetQueryString("userNumberId", strLink);
+                        
+                        var model = bllPlans.GetModel(p=>p.userNumberId==userNumberId && EntityFunctions.CreateDateTime(p.zctime.Value.Year, p.zctime.Value.Month, p.zctime.Value.Day, 0, 0, 0) == dtToDay);
+                        if (model != null)
+                        {                           
+                            model.planname = "默认计划名";                            
+                            model.planlink = strLink;
+                            model.ifok = "正常";
+                            bllPlans.Add(model);
+                        }
+                        else
+                        {
+                            model = new Model.plans();
+                            model.planname = "默认计划名";
+                            model.userNumberId = userNumberId;
+                            model.planlink = strLink;
+                            model.zctime = dtNow;
+                            model.ifok = "正常";
+                            bllPlans.Add(model);
+                        }
+                    }
+                }                
+
+                res.message = "";
+                res.success = true;
+            }
+            catch (Exception e)
+            {
+                res.success = false;
+                res.message = "请求失败" + e.Message;
+                LogHelper.Error(res.message, e);
+            }
+            return res;
+
+        }
+
+
+        
 
 
         /// <summary>
@@ -212,7 +353,7 @@ namespace Mx.Web
             catch (Exception e)
             {
                 res.success = false;
-                res.message = "更新失败，" + e.Message;
+                res.message = "操作失败，" + e.Message;
             }
 
             return res;

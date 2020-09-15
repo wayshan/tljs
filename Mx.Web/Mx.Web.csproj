@@ -3375,6 +3375,7 @@
     <None Include="assets\plugins\jquery.x-editable\README.md" />
     <None Include="assets\plugins\twitter-bootstrap\README.md" />
     <None Include="assets\premium\glyphicons\glyphicons_handbook.pdf" />
+    <Content Include="log4net.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
