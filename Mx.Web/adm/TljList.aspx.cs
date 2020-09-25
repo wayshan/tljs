@@ -82,6 +82,7 @@ namespace Mx.Web.adm
                     dotime = i.dotime,
                     appkeyid = i.AppKeyID,
                     quan_link = i.quan_link,
+                    ActiveCode = i.ActiveCode,
                     yjyl = Math.Round((((i.PayMoney.HasValue ? i.PayMoney.Value : 0.00m)
                     * (i.commission_bili.HasValue ? i.commission_bili.Value : 0.00m) / 100)
                     * 0.88m - (i.per_face.HasValue ? i.per_face.Value : 0.00m)), 2, MidpointRounding.AwayFromZero),

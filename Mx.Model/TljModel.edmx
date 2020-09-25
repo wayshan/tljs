@@ -194,6 +194,7 @@
           <Property Name="campaigntype" Type="nvarchar" MaxLength="100" />
           <Property Name="PayMoney" Type="decimal" Precision="6" Scale="2" />
           <Property Name="qudao" Type="nvarchar" MaxLength="100" />
+          <Property Name="ActiveCode" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityContainer Name="TljModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
@@ -286,6 +287,7 @@
           <Property Name="campaigntype" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PayMoney" Type="Decimal" Precision="6" Scale="2" />
           <Property Name="qudao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -442,6 +444,7 @@
           <EntitySetMapping Name="TljInfoes">
             <EntityTypeMapping TypeName="TljModel.TljInfo">
               <MappingFragment StoreEntitySet="TljInfo">
+                <ScalarProperty Name="ActiveCode" ColumnName="ActiveCode" />
                 <ScalarProperty Name="qudao" ColumnName="qudao" />
                 <ScalarProperty Name="PayMoney" ColumnName="PayMoney" />
                 <ScalarProperty Name="campaigntype" ColumnName="campaigntype" />

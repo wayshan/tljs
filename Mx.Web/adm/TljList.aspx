@@ -76,6 +76,12 @@
                                 <asp:ListItem Value="" Text="全部"></asp:ListItem> 
                             </asp:DropDownList> 
 
+                            活动编码：<asp:DropDownList ID="ddlActiveCode" runat="server" style=" width:auto">
+                                <asp:ListItem Value="-1" Text="全部" Selected="True"></asp:ListItem>                                
+                                <asp:ListItem Value="1" Text="有" ></asp:ListItem>
+                                <asp:ListItem Value="0" Text="无"></asp:ListItem>                                
+                            </asp:DropDownList>
+                            
 
                             <asp:LinkButton ID="btnSearch" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-warning">                       
                                 查询
@@ -102,7 +108,9 @@
                             <th data-sort-ignore="true" data-hide="phone"> 
                                 推广/口令
                             </th>                                          
-                                                      
+                            <th data-sort-ignore="true" data-hide="phone"> 
+                                活动编码
+                            </th>                         
                             <th data-sort-ignore="true">
                                 操作
                             </th>
@@ -161,6 +169,9 @@
                                         </button>
                                         </div>
                                     </td>
+                                    <td>
+                                        <%#Eval("ActiveCode")%>
+                                    </td>
                                     <td>  
                                      <button class="btn btnCheck" gid="<%#Eval("item_id")%>" appkeyid="<%#Eval("appkeyid")%>"  value="<%#Eval("ID")%>" type="button" >
                                         <i class="icon-check"></i>佣金检测
@@ -186,7 +197,7 @@
                             <FooterTemplate>       
                                 <asp:PlaceHolder ID="phEmptyData" runat="server" Visible='<%#bool.Parse((rpData.Items.Count==0).ToString())%>'>
                                     <tr>
-                                    <td style=" text-align:center" colspan="6">
+                                    <td style=" text-align:center" colspan="7">
                                         <div class="alert alert-info">                                          
                                           <strong>没有符合的数据！</strong> 
                                         </div>
@@ -203,7 +214,7 @@
                                 <asp:TextBox ID="txtPageSize" Width="40" MaxLength="6" Text="30" runat="server" 
                                      AutoPostBack="True" ontextchanged="txtPageSize_TextChanged"></asp:TextBox>
                             </td>
-                            <td colspan="5">
+                            <td colspan="6">
                                 <webdiyer:AspNetPager ID="ShowPager" runat="server" OnPageChanged="AspNetPager1_PageChanged"
                                     HorizontalAlign="left" ShowCustomInfoSection="Left" CustomInfoClass="pageCustom"
                                     CustomInfoHTML="共有  <b><font color='red'>%RecordCount%</font></b>  条记录 当前页<b><font color='red'>%CurrentPageIndex%</font>/%PageCount%</b>"

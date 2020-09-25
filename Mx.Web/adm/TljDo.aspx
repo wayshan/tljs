@@ -61,6 +61,13 @@
                     </div>
                     <div class="control-group">
                         <label class="control-label">
+                            活动编码</label>
+                        <div class="controls">
+                            <asp:TextBox ID="txtActiveCode" ClientIDMode="Static" class="input-block-level span6" runat="server" placeholder="活动编码"></asp:TextBox>                                                       
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
                             商品ID</label>
                         <div class="controls">
                             <asp:TextBox ID="txtitem_id" ClientIDMode="Static" class="input-block-level span6" runat="server" placeholder="商品ID"></asp:TextBox>                            
@@ -336,7 +343,8 @@
             <%=txttotal_num.UniqueID %>: {
                 required: true,
                 digits:true,
-                min:1
+                min:1,
+                ActCode:"#txtActiveCode"
             },
             <%=txtper_face.UniqueID %>: {
                 required: true,
@@ -471,6 +479,14 @@
          
         $(function () {            
             FormValidation.init();
+
+            jQuery.validator.addMethod("ActCode", function(value, element, param) {
+                if($(param).val()!="")
+                {
+                    return value==1;
+                }
+                return true;
+            }, $.validator.format("录入活动编码，总个数必须是1!"));
         });
 
 

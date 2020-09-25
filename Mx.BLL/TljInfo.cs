@@ -1,6 +1,6 @@
-﻿using System; 
+﻿using System;
 using System.Text;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,9 +9,9 @@ using Mx.Common;
 
 namespace Mx.BLL
 {
-	/// <summary>
-	///淘礼金
-	/// </summary>
+    /// <summary>
+    ///淘礼金
+    /// </summary>
     public class TljInfo
     {
         private readonly DAL.TljInfo dal = new DAL.TljInfo();
@@ -101,9 +101,9 @@ namespace Mx.BLL
         {
             var searchPredicate = PredicateBuilder.True<Model.TljInfo>();
             if (!string.IsNullOrEmpty(con.KeyWords))
-            searchPredicate = searchPredicate.And(m => m.goodsname.Contains(con.KeyWords));
+                searchPredicate = searchPredicate.And(m => m.goodsname.Contains(con.KeyWords));
             if (!string.IsNullOrEmpty(con.KeyWords))
-            searchPredicate = searchPredicate.Or(m => m.item_id.Contains(con.KeyWords));
+                searchPredicate = searchPredicate.Or(m => m.item_id.Contains(con.KeyWords));
 
             if (con.isstat)
             {
@@ -120,7 +120,7 @@ namespace Mx.BLL
 
             if (con.startTime.HasValue)
             {
-                searchPredicate = searchPredicate.And(m=>m.send_start_time>=con.startTime);
+                searchPredicate = searchPredicate.And(m => m.send_start_time >= con.startTime);
             }
             if (con.endTime.HasValue)
             {
@@ -137,11 +137,11 @@ namespace Mx.BLL
             if (!string.IsNullOrEmpty(con.Ifsingle))
             {
                 searchPredicate = searchPredicate.And(m => con.Ifsingle == "1" ? m.total_num != 1 : m.total_num == 1);
-               
+
             }
             if (!string.IsNullOrEmpty(con.AppName))
             {
-                searchPredicate = searchPredicate.And(m => dal.db.appkeys.FirstOrDefault(a=>a.ID==m.AppKeyID && a.AppName.Contains(con.AppName))!=null);
+                searchPredicate = searchPredicate.And(m => dal.db.appkeys.FirstOrDefault(a => a.ID == m.AppKeyID && a.AppName.Contains(con.AppName)) != null);
             }
             if (!string.IsNullOrEmpty(con.setName))
             {
@@ -151,12 +151,23 @@ namespace Mx.BLL
             {
                 searchPredicate = searchPredicate.And(m => dal.db.appkeys.FirstOrDefault(a => a.ID == m.AppKeyID && a.TbAccount.Contains(con.setName)) != null);
             }
-            if (con.goodstype!="-1")
+            if (con.goodstype != "-1")
             {
-                searchPredicate = searchPredicate.And(m => (string.IsNullOrEmpty(con.goodstype) &&    m.goodstype == null) || m.goodstype==con.goodstype);
+                searchPredicate = searchPredicate.And(m => (string.IsNullOrEmpty(con.goodstype) && m.goodstype == null) || m.goodstype == con.goodstype);
+            }
+            if (con.ifActiveCode != "-1")
+            {
+                if (con.ifActiveCode == "1")
+                {
+                    searchPredicate = searchPredicate.And(m => m.ActiveCode != null && m.ActiveCode != string.Empty);
+                }
+                else if (con.ifActiveCode == "0")
+                {
+                    searchPredicate = searchPredicate.And(m => m.ActiveCode == null || m.ActiveCode == string.Empty);
+                }
             }
             return searchPredicate;
         }
-         
+
     }
 }

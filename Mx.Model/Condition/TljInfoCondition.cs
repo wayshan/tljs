@@ -26,7 +26,9 @@ namespace Mx.Model
         public string setName { get; set; }
 
         public string goodstype { get; set; }
-        
-        
+
+        public string ifActiveCode { get; set; }
+
+
     }
 }

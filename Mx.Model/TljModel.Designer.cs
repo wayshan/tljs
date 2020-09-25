@@ -4253,6 +4253,30 @@ namespace Mx.Model
         private global::System.String _qudao;
         partial void OnqudaoChanging(global::System.String value);
         partial void OnqudaoChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ActiveCode
+        {
+            get
+            {
+                return _ActiveCode;
+            }
+            set
+            {
+                OnActiveCodeChanging(value);
+                ReportPropertyChanging("ActiveCode");
+                _ActiveCode = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ActiveCode");
+                OnActiveCodeChanged();
+            }
+        }
+        private global::System.String _ActiveCode;
+        partial void OnActiveCodeChanging(global::System.String value);
+        partial void OnActiveCodeChanged();
 
         #endregion
 

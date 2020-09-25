@@ -42,7 +42,7 @@ namespace Mx.Web
                 else if (context.Request.HttpMethod == "GET")
                 {
                     action = GetRequest(context, "act").ToLower();
-                }            
+                }
                 switch (action)
                 {
                     case "getplans":
@@ -60,7 +60,14 @@ namespace Mx.Web
                     case "updatezh":
                         result = UpdateZh(context);
                         break;
-
+                    //获取口令
+                    case "getkouling":
+                        result = GetKouling(context);
+                        break;
+                    //获取活动有效产品数量
+                    case "getactivecodelist":
+                        result = GetActiveCodeList(context);
+                        break;
                 }
             }
             catch
@@ -94,12 +101,12 @@ namespace Mx.Web
                 List<Model.plans> list = new List<Model.plans>();
                 if (string.IsNullOrEmpty(strGetOk))
                 {
-                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.ifok=="正常", m => m.id, false);
+                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.ifok == "正常", m => m.id, false);
                 }
                 else
                 {
-                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.zhanghaos_ok!="" && m.ifok == "正常", m => m.lastOkTime, false);
-                }                
+                    list = bllplans.GetList(1, int.MaxValue, ref total, m => m.zctime >= dt && m.zhanghaos_ok != "" && m.ifok == "正常", m => m.lastOkTime, false);
+                }
 
                 foreach (var item in list)
                 {
@@ -196,7 +203,7 @@ namespace Mx.Web
                         continue;
                     }
                     string strItem = strArr[i];
-                    int index =PageFunc.getIndex(strItem);
+                    int index = PageFunc.getIndex(strItem);
                     string strLink = string.Format("http{0}", strItem.Substring(0, index));
                     if (strLink.IndexOf("uland.taobao.com") != -1)
                     {
@@ -205,13 +212,13 @@ namespace Mx.Web
                     else if (strLink.IndexOf("detail.tmall.com") != -1)
                     {
                         string itemId = PageFunc.GetQueryString("id", strLink);
-                        string strContent = HttpHelper.HttpGet("http://g5.vipdamai.net/hcapi.ashx?gid="+itemId);
+                        string strContent = HttpHelper.HttpGet("http://g5.vipdamai.net/hcapi.ashx?gid=" + itemId);
                         hcRoot hc = JsonConvert.DeserializeObject<hcRoot>(strContent);
                         if (hc.error == "0")
                         {
                             if (hc.data != null)
                             {
-                                
+
                                 int total = 0;
                                 var list = bllPlans.GetList(1, int.MaxValue, ref total, p => p.userNumberId == hc.data.seller_id && EntityFunctions.CreateDateTime(p.zctime.Value.Year, p.zctime.Value.Month, p.zctime.Value.Day, 0, 0, 0) == dtToDay, p => p.id);
 
@@ -226,7 +233,7 @@ namespace Mx.Web
                                         {
                                             int tempIndex1 = hc.data.coupon_info.IndexOf("减");
                                             int tempIndex2 = hc.data.coupon_info.IndexOf("元");
-                                            string couponPrice = hc.data.coupon_info.Substring(tempIndex1+1, tempIndex2 - tempIndex1-1);
+                                            string couponPrice = hc.data.coupon_info.Substring(tempIndex1 + 1, tempIndex2 - tempIndex1 - 1);
                                             item.coupon_price = couponPrice;
                                             item.PayMoney = decimal.Parse(hc.data.zk_final_price) - decimal.Parse(couponPrice);
                                         }
@@ -256,11 +263,11 @@ namespace Mx.Web
                     else if (strLink.IndexOf("pub.alimama.com") != -1)
                     {
                         string userNumberId = PageFunc.GetQueryString("userNumberId", strLink);
-                        
-                        var model = bllPlans.GetModel(p=>p.userNumberId==userNumberId && EntityFunctions.CreateDateTime(p.zctime.Value.Year, p.zctime.Value.Month, p.zctime.Value.Day, 0, 0, 0) == dtToDay);
+
+                        var model = bllPlans.GetModel(p => p.userNumberId == userNumberId && EntityFunctions.CreateDateTime(p.zctime.Value.Year, p.zctime.Value.Month, p.zctime.Value.Day, 0, 0, 0) == dtToDay);
                         if (model != null)
-                        {                           
-                            model.planname = "默认计划名";                            
+                        {
+                            model.planname = "默认计划名";
                             model.planlink = strLink;
                             model.ifok = "正常";
                             bllPlans.Add(model);
@@ -276,7 +283,7 @@ namespace Mx.Web
                             bllPlans.Add(model);
                         }
                     }
-                }                
+                }
 
                 res.message = "";
                 res.success = true;
@@ -292,7 +299,7 @@ namespace Mx.Web
         }
 
 
-        
+
 
 
         /// <summary>
@@ -361,6 +368,91 @@ namespace Mx.Web
         }
 
 
+        private ApiResult GetKouling(HttpContext con)
+        {
+            BLL.TljInfo bllTljInfo = new BLL.TljInfo();
+            ApiResult res = new ApiResult();
+            DateTime dtNow = DateTime.Now;
+            try
+            {
+                string code = GetRequest(con, "code");
+                var model =  bllTljInfo.GetModel(t => t.ifok=="已生成" && t.ifget==false && t.ActiveCode == code);
+                if (model != null)
+                {
+                    object obj = new
+                    {
+                        ActiveCode = model.ActiveCode,
+                        goodsname = model.goodsname,
+                        item_id = model.item_id,
+                        item_pic = model.item_pic,
+                        kouling = model.kouling
+                    };
+                    model.ifget = true;
+                    model.gettime = dtNow;
+                    bllTljInfo.Update(model);
+                    res.message = JsonConvert.SerializeObject(obj);
+                    res.success = true;
+                }
+                else
+                {
+                    res.message = "口令已经领取完毕";
+                    res.success = false;                    
+                }
+                
+            }
+            catch (Exception e)
+            {
+                res.success = false;
+                res.message = "操作失败，" + e.Message;
+            }
+
+            return res;
+        }
+
+
+
+        private ApiResult GetActiveCodeList(HttpContext con)
+        {
+            BLL.TljInfo bllTljInfo = new BLL.TljInfo();
+            ApiResult res = new ApiResult();
+            DateTime dtNow = DateTime.Now;
+            DateTime dtToday = DateTime.Parse(dtNow.ToShortDateString());
+            try
+            {
+                int total = 0;
+                Model.TljInfoCondition cond = new Model.TljInfoCondition {
+                    ifget = false,
+                    Ifok="已生成",
+                    statStartTime = dtToday
+                };
+                var list = bllTljInfo.GetList(1, int.MaxValue, ref total, cond, t => t.ID)
+                    .GroupBy(m => new
+                    {
+                        m.ActiveCode,
+                        m.item_id,
+                        m.goodsname,
+                        m.item_pic
+                    }).Select(m=>new {
+                        ActiveCode = m.Key.ActiveCode,
+                        goodsname = m.Key.goodsname,
+                        item_id = m.Key.item_id,
+                        item_pic = m.Key.item_pic,
+                        count = m.Count()
+                    }).ToList();
+
+                res.message = JsonConvert.SerializeObject(list);
+                res.success = true;
+            }
+            catch (Exception e)
+            {
+                res.success = false;
+                res.message = "操作失败，" + e.Message;
+            }
+
+            return res;
+        }
+
+
 
         /// <summary>
         /// 获取指定键值的参数值
@@ -391,9 +483,9 @@ namespace Mx.Web
         {
             if (content.Request.HttpMethod == "POST")
             {
-                int.TryParse(content.Request.Form[key].ToString(), out defaultValue);               
+                int.TryParse(content.Request.Form[key].ToString(), out defaultValue);
             }
-            else if(content.Request[key] != null)
+            else if (content.Request[key] != null)
             {
                 int.TryParse(content.Request[key].ToString(), out defaultValue);
             }

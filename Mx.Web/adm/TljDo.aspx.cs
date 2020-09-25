@@ -69,6 +69,7 @@ namespace Mx.Web.adm
 
                 txtpagePrice.Text = modelTljInfo.PayMoney.ToString();
                 ddlAppKeyID.SelectedValue = modelTljInfo.AppKeyID.ToString();
+                txtActiveCode.Text = modelTljInfo.ActiveCode;
                 txtitem_id.Text = modelTljInfo.item_id;
                 txtgoodsname.Text = modelTljInfo.goodsname;
                 txtquan_link.Text = modelTljInfo.quan_link;
@@ -133,6 +134,7 @@ namespace Mx.Web.adm
             {
                 modelTljInfo = new Model.TljInfo();
                 modelTljInfo.AppKeyID = int.Parse(ddlAppKeyID.SelectedValue);
+                modelTljInfo.ActiveCode = txtActiveCode.Text.Trim();
                 modelTljInfo.item_id = txtitem_id.Text.Trim();
                 modelTljInfo.goodsname = txtgoodsname.Text.Trim();
                 modelTljInfo.quan_link = txtquan_link.Text.Trim();
