@@ -54,6 +54,7 @@
     <Compile Include="Condition\TljInfoCondition.cs" />
     <Compile Include="Condition\appkeyCondition.cs" />
     <Compile Include="goodsinfo.cs" />
+    <Compile Include="ModelActCode.cs" />
     <Compile Include="MOpType.cs" />
     <Compile Include="MStatus.cs" />
     <Compile Include="OrderXls.cs" />

@@ -335,6 +335,17 @@
                 </div>
               </div>
 
+                   <div class="accordion-group">
+                <div class="accordion-heading">
+                  <!-- ... and opened -->
+                  <a class="accordion-toggle" href="ActiveCodeList.aspx">
+                    <i class="icon-unlock icon-2"></i>
+                    <span>活动编码管理</span>
+                  </a>
+                </div>
+              </div>
+
+
 
               <div class="accordion-group">
                 <div class="accordion-heading">

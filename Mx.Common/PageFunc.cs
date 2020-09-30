@@ -714,7 +714,7 @@ namespace Mx.Common
         /// <returns></returns>
         public static int getIndex(string text)
         {
-            int iResult = text.Length - 1;
+            int iResult = text.Length;
             for (int i = 0; i < text.Length; i++)
             {
                 if (string.IsNullOrWhiteSpace(text[i].ToString()) || (int)text[i] > 127)

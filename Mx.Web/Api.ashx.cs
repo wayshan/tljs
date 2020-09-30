@@ -231,9 +231,8 @@ namespace Mx.Web
                                         item.shopname = hc.data.shop_title;
                                         if (!string.IsNullOrEmpty(hc.data.coupon_info))
                                         {
-                                            int tempIndex1 = hc.data.coupon_info.IndexOf("减");
-                                            int tempIndex2 = hc.data.coupon_info.IndexOf("元");
-                                            string couponPrice = hc.data.coupon_info.Substring(tempIndex1 + 1, tempIndex2 - tempIndex1 - 1);
+                                            string couponPrice = hc.data.coupon_info.Substring(hc.data.coupon_info.IndexOf("减") + 1).Replace("元", "");
+
                                             item.coupon_price = couponPrice;
                                             item.PayMoney = decimal.Parse(hc.data.zk_final_price) - decimal.Parse(couponPrice);
                                         }
@@ -252,7 +251,7 @@ namespace Mx.Web
                                     item.shopname = hc.data.shop_title;
                                     item.pic = hc.data.pict_url;
                                     item.zctime = dtNow;
-                                    item.coupon_url = hc.data.coupon_click_url;
+                                    //item.coupon_url = hc.data.coupon_click_url;
                                     item.userNumberId = hc.data.seller_id;
                                     item.ifok = "待补充";
                                     bllPlans.Add(item);
@@ -270,7 +269,7 @@ namespace Mx.Web
                             model.planname = "默认计划名";
                             model.planlink = strLink;
                             model.ifok = "正常";
-                            bllPlans.Add(model);
+                            bllPlans.Update(model);
                         }
                         else
                         {

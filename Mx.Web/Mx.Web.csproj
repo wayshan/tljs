@@ -76,6 +76,7 @@
     <Content Include="adm\AdminList.aspx" />
     <Content Include="adm\change.aspx" />
     <Content Include="adm\collectgoodsList.aspx" />
+    <Content Include="adm\ActiveCodeList.aspx" />
     <Content Include="adm\plansList.aspx" />
     <Content Include="adm\test.aspx" />
     <Content Include="adm\TljDo.aspx" />
@@ -3025,6 +3026,13 @@
     </Compile>
     <Compile Include="adm\collectgoodsList.aspx.designer.cs">
       <DependentUpon>collectgoodsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="adm\ActiveCodeList.aspx.cs">
+      <DependentUpon>ActiveCodeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adm\ActiveCodeList.aspx.designer.cs">
+      <DependentUpon>ActiveCodeList.aspx</DependentUpon>
     </Compile>
     <Compile Include="adm\plansList.aspx.cs">
       <DependentUpon>plansList.aspx</DependentUpon>
