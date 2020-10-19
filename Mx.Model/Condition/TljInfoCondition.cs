@@ -25,7 +25,7 @@ namespace Mx.Model
         public string AppName { get; set; }
         public string setName { get; set; }
 
-        public string goodstype { get; set; }
+        public string goodstype { get; set; } = "-1";
 
         public string ifActiveCode { get; set; }
 

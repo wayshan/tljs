@@ -17,10 +17,8 @@ namespace Mx.Web.adm
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckAuth(new string[] { Codes.AdminRole.管理员 });
-            if (!IsPostBack)
-            {              
-                DataInfoBind();
-            }
+            DataInfoBind();
+           
         }
 
 
@@ -35,7 +33,7 @@ namespace Mx.Web.adm
                     m.item_id,
                     m.goodsname,
                     m.item_pic
-                }).Select(m =>  
+                }).OrderByDescending(m=>m.Key.ActiveCode).Select(m =>  
                 new ModelActCode
                 {
                     ActiveCode = m.Key.ActiveCode,
@@ -44,14 +42,17 @@ namespace Mx.Web.adm
                     item_pic = m.Key.item_pic,
                     count = m.Count()                  
                 }).ToList();
-
             foreach (var item in list)
-            { 
-                item.Link = string.Format("{0}/mdtishi.aspx?qid=｛待补充群号｝&hdcode={1}", strQunmanageUrl,item.ActiveCode);
+            {
+                item.Link = string.Format("{0}/mdtishi.aspx?qid=｛待补充群号｝&hdcode={1}", strQunmanageUrl, item.ActiveCode);
                 item.qunLink = string.Format("{0}/adm/GroupActList.aspx?json={1}", strQunmanageUrl, Server.UrlEncode(Newtonsoft.Json.JsonConvert.SerializeObject(item)));
-            }            
+            }
+           
+            total = list.Count();
+            var listRes = list.Skip((ShowPager.CurrentPageIndex - 1) * ShowPager.PageSize).Take(ShowPager.PageSize).ToList();
+
             ShowPager.RecordCount = total;
-            this.rpData.DataSource = list;
+            this.rpData.DataSource = listRes;
             this.rpData.DataBind();
         }
 
@@ -74,7 +75,8 @@ namespace Mx.Web.adm
             {
                 ifget = false,
                 Ifok = "已生成",
-                statStartTime = dtToday
+                statStartTime = dtToday,
+                ifActiveCode = "1"
             };                                      
             return con;
         }
